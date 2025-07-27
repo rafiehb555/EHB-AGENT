@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -15,6 +15,8 @@ import DeveloperMode from './components/DeveloperMode';
 import Collaboration from './components/Collaboration';
 import LegalAssistant from './components/LegalAssistant';
 import FranchiseCourt from './components/FranchiseCourt';
+import RobotButton from './components/EhbRobot/RobotButton';
+import RobotModal from './components/EhbRobot/RobotModal';
 
 // Hooks
 import { useRobotStore } from './hooks/useRobotStore';
@@ -24,6 +26,15 @@ import './App.css';
 
 function App() {
   const { isConnected, robotStatus } = useRobotStore();
+  const [isRobotModalOpen, setIsRobotModalOpen] = useState(false);
+
+  const handleOpenRobotModal = () => {
+    setIsRobotModalOpen(true);
+  };
+
+  const handleCloseRobotModal = () => {
+    setIsRobotModalOpen(false);
+  };
 
   return (
     <div className="App">
@@ -99,6 +110,13 @@ function App() {
               },
             },
           }}
+        />
+
+        {/* EHB Robot Components */}
+        <RobotButton onOpenModal={handleOpenRobotModal} />
+        <RobotModal
+          isOpen={isRobotModalOpen}
+          onClose={handleCloseRobotModal}
         />
       </motion.div>
     </div>
