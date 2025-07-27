@@ -1,0 +1,9 @@
+{
+  "name": "Backend Agent",
+  "type": "backend",
+  "features": [
+    "api",
+    "database",
+    "security"
+  ]
+}

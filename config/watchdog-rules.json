@@ -1,0 +1,247 @@
+{
+  "system": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-01T00:00:00.000Z",
+    "description": "EHB Watchdog Security Rules Configuration"
+  },
+  "rules": [
+    {
+      "id": "db_access_control",
+      "type": "action_control",
+      "action": "db_access",
+      "allowed_agents": ["backend-agent", "data-agent", "admin-agent"],
+      "severity": "high",
+      "description": "Database access control",
+      "enabled": true
+    },
+    {
+      "id": "file_system_control",
+      "type": "action_control",
+      "action": "file_delete",
+      "allowed_agents": ["admin-agent", "system-agent"],
+      "severity": "critical",
+      "description": "File deletion control",
+      "enabled": true
+    },
+    {
+      "id": "system_config_control",
+      "type": "action_control",
+      "action": "system_config_modify",
+      "allowed_agents": ["admin-agent"],
+      "severity": "critical",
+      "description": "System configuration modification control",
+      "enabled": true
+    },
+    {
+      "id": "patient_data_control",
+      "type": "action_control",
+      "action": "patient_data_access",
+      "allowed_agents": ["health-agent", "medical-agent", "admin-agent"],
+      "severity": "high",
+      "description": "Patient data access control",
+      "enabled": true
+    },
+    {
+      "id": "code_execution_control",
+      "type": "action_control",
+      "action": "code_execution",
+      "allowed_agents": ["dev-agent", "test-agent", "admin-agent"],
+      "severity": "medium",
+      "description": "Code execution control",
+      "enabled": true
+    },
+    {
+      "id": "network_access_control",
+      "type": "action_control",
+      "action": "network_access",
+      "allowed_agents": ["network-agent", "api-agent", "admin-agent"],
+      "severity": "medium",
+      "description": "Network access control",
+      "enabled": true
+    },
+    {
+      "id": "env_var_control",
+      "type": "action_control",
+      "action": "environment_variable_access",
+      "allowed_agents": ["config-agent", "admin-agent"],
+      "severity": "high",
+      "description": "Environment variable access control",
+      "enabled": true
+    },
+    {
+      "id": "dangerous_keywords",
+      "type": "content_control",
+      "keywords": [
+        "eval(",
+        "exec(",
+        "require(",
+        "process.exit(",
+        "rm -rf",
+        "del /s",
+        "format c:",
+        "shutdown",
+        "kill -9"
+      ],
+      "severity": "critical",
+      "description": "Dangerous keyword detection",
+      "enabled": true
+    },
+    {
+      "id": "rate_limiting",
+      "type": "rate_control",
+      "max_actions_per_minute": 50,
+      "severity": "medium",
+      "description": "Rate limiting control",
+      "enabled": true
+    },
+    {
+      "id": "data_leakage_prevention",
+      "type": "content_control",
+      "sensitive_patterns": [
+        "password[\\s]*:[\\s]*[^}\\s,]+",
+        "token[\\s]*:[\\s]*[^}\\s,]+",
+        "secret[\\s]*:[\\s]*[^}\\s,]+",
+        "key[\\s]*:[\\s]*[^}\\s,]+",
+        "api_key[\\s]*:[\\s]*[^}\\s,]+",
+        "private_key[\\s]*:[\\s]*[^}\\s,]+"
+      ],
+      "severity": "high",
+      "description": "Data leakage prevention",
+      "enabled": true
+    },
+    {
+      "id": "hipaa_compliance",
+      "type": "compliance_control",
+      "standards": ["hipaa", "hitech"],
+      "required_fields": [
+        "patient_consent",
+        "data_encryption",
+        "access_logging",
+        "audit_trail"
+      ],
+      "severity": "critical",
+      "description": "HIPAA compliance requirements",
+      "enabled": true
+    },
+    {
+      "id": "malware_detection",
+      "type": "content_control",
+      "suspicious_patterns": [
+        "base64_decode",
+        "eval\\(.*base64",
+        "shell_exec",
+        "system\\(",
+        "passthru\\(",
+        "exec\\("
+      ],
+      "severity": "critical",
+      "description": "Malware pattern detection",
+      "enabled": true
+    },
+    {
+      "id": "sql_injection_prevention",
+      "type": "content_control",
+      "suspicious_patterns": [
+        "SELECT.*FROM.*WHERE.*=.*'",
+        "INSERT.*INTO.*VALUES.*'",
+        "UPDATE.*SET.*=.*'",
+        "DELETE.*FROM.*WHERE.*=.*'",
+        "DROP.*TABLE",
+        "ALTER.*TABLE"
+      ],
+      "severity": "high",
+      "description": "SQL injection prevention",
+      "enabled": true
+    },
+    {
+      "id": "xss_prevention",
+      "type": "content_control",
+      "suspicious_patterns": [
+        "<script",
+        "javascript:",
+        "onload=",
+        "onerror=",
+        "onclick=",
+        "alert\\("
+      ],
+      "severity": "high",
+      "description": "XSS prevention",
+      "enabled": true
+    }
+  ],
+  "whitelist": [
+    "admin-agent",
+    "system-agent",
+    "watchdog-agent"
+  ],
+  "blacklist": [],
+  "quarantine": {
+    "enabled": true,
+    "score_threshold": 30,
+    "violation_threshold": 5,
+    "crash_threshold": 3,
+    "suspicious_action_threshold": 10,
+    "auto_quarantine": true
+  },
+  "logging": {
+    "enabled": true,
+    "log_format": "json",
+    "encryption_enabled": true,
+    "compression_enabled": false,
+    "max_log_files": 10,
+    "log_rotation_size": "10MB"
+  },
+  "notifications": {
+    "enabled": true,
+    "email_notifications": false,
+    "webhook_notifications": false,
+    "dashboard_notifications": true,
+    "critical_alerts": true
+  },
+  "monitoring": {
+    "real_time_monitoring": true,
+    "agent_health_checks": true,
+    "performance_monitoring": true,
+    "security_scanning": true,
+    "compliance_checking": true
+  },
+  "compliance": {
+    "hipaa": {
+      "enabled": true,
+      "data_encryption": true,
+      "access_controls": true,
+      "audit_logging": true,
+      "data_retention": "7-years"
+    },
+    "gdpr": {
+      "enabled": false,
+      "data_protection": false,
+      "consent_management": false,
+      "right_to_forget": false
+    },
+    "sox": {
+      "enabled": false,
+      "financial_reporting": false,
+      "internal_controls": false
+    }
+  },
+  "performance": {
+    "max_response_time": 5000,
+    "max_memory_usage": "1GB",
+    "max_cpu_usage": 80,
+    "max_concurrent_tasks": 100
+  },
+  "security": {
+    "encryption_algorithm": "AES-256-CBC",
+    "hash_algorithm": "SHA-256",
+    "session_timeout": 3600,
+    "max_login_attempts": 5,
+    "password_policy": {
+      "min_length": 8,
+      "require_uppercase": true,
+      "require_lowercase": true,
+      "require_numbers": true,
+      "require_special_chars": true
+    }
+  }
+} 

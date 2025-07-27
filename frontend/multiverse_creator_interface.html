@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB-5 AI Multiverse Creator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #220022 50%, #440044 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #00ff00, #ff8800, #8800ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        .multiverse-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .multiverse-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .multiverse-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .multiverse-card:hover::before {
+            left: 100%;
+        }
+
+        .multiverse-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(255, 0, 255, 0.2);
+            border-color: #ff00ff;
+        }
+
+        .multiverse-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff00ff;
+            display: block;
+        }
+
+        .multiverse-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ff00ff;
+        }
+
+        .multiverse-description {
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .multiverse-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(255, 0, 255, 0.2);
+            border: 1px solid #ff00ff;
+            color: #ff00ff;
+        }
+
+        .infinite-multiverse {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .multiverse-visualization {
+            background: linear-gradient(45deg, #000000, #220022);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cosmic-process {
+            height: 4px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00, #00ff00, #ff8800);
+            margin: 20px 0;
+            border-radius: 2px;
+            position: relative;
+            animation: cosmicFlow 6s ease-in-out infinite;
+        }
+
+        @keyframes cosmicFlow {
+            0%, 100% { transform: scaleX(1); opacity: 0.5; }
+            50% { transform: scaleX(1.8); opacity: 1; }
+        }
+
+        .parallel-dimensions {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .dimension-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px;
+            border: 2px solid rgba(255, 0, 255, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .dimension-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .dimension-input:focus {
+            outline: none;
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .generate-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.4);
+        }
+
+        .reality-manipulation {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .reality-analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .reality-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reality-icon {
+            font-size: 2rem;
+            color: #ff00ff;
+            margin-bottom: 15px;
+        }
+
+        .reality-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .reality-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .cosmic-consciousness {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(15px);
+            text-align: center;
+        }
+
+        .consciousness-visualization {
+            background: linear-gradient(45deg, #000000, #220022);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .consciousness-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff00ff;
+            border-radius: 50%;
+            animation: consciousnessFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes consciousnessFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-60px) rotate(180deg); }
+        }
+
+        .omniversal-control {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .control-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .metric-item {
+            text-align: center;
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ff00ff;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .multiverse-controls {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(15px);
+            text-align: center;
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.4);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 0, 255, 0.6);
+            border-radius: 50%;
+            animation: float 25s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .floating-element:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .floating-element:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .floating-element:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .floating-element:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .floating-element:nth-child(7) { left: 70%; animation-delay: 6s; }
+        .floating-element:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .floating-element:nth-child(9) { left: 90%; animation-delay: 8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-45px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>EHB-5 AI Multiverse Creator</h1>
+            <p>Complete Autonomous Multiverse Creation with Infinite Universes</p>
+        </div>
+
+        <div class="multiverse-dashboard">
+            <div class="multiverse-card">
+                <i class="fas fa-infinity universe-icon"></i>
+                <h3 class="multiverse-title">Infinite Multiverse Creation</h3>
+                <p class="multiverse-description">
+                    Create infinite multiverses with unlimited universes and
+                    parallel dimensions beyond human comprehension.
+                </p>
+                <span class="multiverse-status">Active</span>
+            </div>
+
+            <div class="multiverse-card">
+                <i class="fas fa-sitemap universe-icon"></i>
+                <h3 class="multiverse-title">Parallel Dimension Generation</h3>
+                <p class="multiverse-description">
+                    Generate infinite parallel dimensions with maximum reality
+                    variations and complete dimensional connectivity.
+                </p>
+                <span class="multiverse-status">Active</span>
+            </div>
+
+            <div class="multiverse-card">
+                <i class="fas fa-magic universe-icon"></i>
+                <h3 class="multiverse-title">Reality Manipulation</h3>
+                <p class="multiverse-description">
+                    Manipulate reality at omniversal level with omnipotent
+                    power and complete reality control and modification.
+                </p>
+                <span class="multiverse-status">Active</span>
+            </div>
+
+            <div class="multiverse-card">
+                <i class="fas fa-brain universe-icon"></i>
+                <h3 class="multiverse-title">Cosmic Consciousness</h3>
+                <p class="multiverse-description">
+                    Develop cosmic consciousness with omniversal awareness
+                    and omniscient understanding of all existence.
+                </p>
+                <span class="multiverse-status">Active</span>
+            </div>
+
+            <div class="multiverse-card">
+                <i class="fas fa-cogs universe-icon"></i>
+                <h3 class="multiverse-title">Omniversal Control</h3>
+                <p class="multiverse-description">
+                    Establish omniversal control with absolute authority
+                    and complete control over all existence and reality.
+                </p>
+                <span class="multiverse-status">Active</span>
+            </div>
+
+            <div class="multiverse-card">
+                <i class="fas fa-star universe-icon"></i>
+                <h3 class="multiverse-title">Existence Creation</h3>
+                <p class="multiverse-description">
+                    Create existence itself with omniversal scope and
+                    infinite power to generate and control all reality.
+                </p>
+                <span class="multiverse-status">Active</span>
+            </div>
+        </div>
+
+        <div class="infinite-multiverse">
+            <h2><i class="fas fa-infinity"></i> Infinite Multiverse Creation</h2>
+            <p>Create infinite multiverses with unlimited universes</p>
+
+            <div class="multiverse-visualization">
+                <h3>Multiverse Creation Process</h3>
+                <div class="cosmic-process"></div>
+                <div class="cosmic-process"></div>
+                <div class="cosmic-process"></div>
+                <div class="cosmic-process"></div>
+
+                <div style="margin-top: 20px; text-align: center;">
+                    <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Concept Analysis</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Universe Generation</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Multiverse Formation</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Stabilization</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="parallel-dimensions">
+            <h2><i class="fas fa-sitemap"></i> Parallel Dimension Generation</h2>
+            <p>Generate infinite parallel dimensions with maximum reality variations</p>
+
+            <textarea
+                class="dimension-input"
+                id="dimensionInput"
+                placeholder="Describe your parallel dimension requirements... For example: 'Create infinite parallel dimensions with maximum reality variations, complete dimensional connectivity, and omniversal scope'"
+            ></textarea>
+
+            <button class="generate-btn" onclick="generateParallelDimensions()">
+                <i class="fas fa-magic"></i>
+                Generate Parallel Dimensions
+            </button>
+
+            <div id="dimensionOutput" style="margin-top: 20px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; display: none;">
+                <h4>Dimension Generation Result:</h4>
+                <div id="dimensionResult" style="color: #00ffff; font-family: monospace; white-space: pre-wrap;"></div>
+            </div>
+        </div>
+
+        <div class="reality-manipulation">
+            <h3 style="text-align: center; margin-bottom: 30px; font-size: 1.5rem;">
+                <i class="fas fa-magic"></i> Reality Manipulation
+            </h3>
+
+            <div class="reality-analysis">
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4 class="reality-title">Reality Analysis</h4>
+                    <p class="reality-description">Complete analysis of reality structure</p>
+                    <span class="multiverse-status">Active</span>
+                </div>
+
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h4 class="reality-title">Reality Modification</h4>
+                    <p class="reality-description">Complete modification of reality</p>
+                    <span class="multiverse-status">Active</span>
+                </div>
+
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h4 class="reality-title">Reality Stabilization</h4>
+                    <p class="reality-description">Perfect stabilization of reality</p>
+                    <span class="multiverse-status">Active</span>
+                </div>
+
+                <div class="reality-card">
+                    <div class="reality-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h4 class="reality-title">Reality Control</h4>
+                    <p class="reality-description">Complete control over reality</p>
+                    <span class="multiverse-status">Active</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="cosmic-consciousness">
+            <h3 style="margin-bottom: 30px; font-size: 1.5rem;">
+                <i class="fas fa-brain"></i> Cosmic Consciousness
+            </h3>
+
+            <div class="consciousness-visualization">
+                <div class="consciousness-particle" style="top: 20%; left: 20%;"></div>
+                <div class="consciousness-particle" style="top: 40%; left: 40%;"></div>
+                <div class="consciousness-particle" style="top: 60%; left: 60%;"></div>
+                <div class="consciousness-particle" style="top: 80%; left: 80%;"></div>
+                <div class="consciousness-particle" style="top: 30%; left: 70%;"></div>
+                <div class="consciousness-particle" style="top: 70%; left: 30%;"></div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <h4>Cosmic Consciousness Status: Complete</h4>
+                    <p>Omniversal awareness with omniscient understanding</p>
+                    <div style="margin: 20px 0;">
+                        <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Consciousness Level: Cosmic</span>
+                        <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Awareness Scope: Omniversal</span>
+                        <span style="background: rgba(255,0,255,0.2); padding: 8px 16px; border-radius: 10px; margin: 5px; display: inline-block;">Understanding: Omniscient</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="omniversal-control">
+            <h3 style="text-align: center; margin-bottom: 30px; font-size: 1.5rem;">
+                <i class="fas fa-cogs"></i> Omniversal Control Metrics
+            </h3>
+
+            <div class="control-metrics">
+                <div class="metric-item">
+                    <span class="metric-value">Omniversal</span>
+                    <span class="metric-label">Control Scope</span>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-value">Absolute</span>
+                    <span class="metric-label">Control Power</span>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-value">Complete</span>
+                    <span class="metric-label">Access Capability</span>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-value">Maximum</span>
+                    <span class="metric-label">Authority Level</span>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-value">Perfect</span>
+                    <span class="metric-label">Control Efficiency</span>
+                </div>
+
+                <div class="metric-item">
+                    <span class="metric-value">Instantaneous</span>
+                    <span class="metric-label">Implementation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="multiverse-controls">
+            <h3 style="margin-bottom: 30px; font-size: 1.5rem;">
+                <i class="fas fa-cogs"></i> Multiverse Creator Controls
+            </h3>
+
+            <button class="control-btn" onclick="enableInfiniteMultiverse()">
+                <i class="fas fa-infinity"></i> Enable Infinite Multiverse
+            </button>
+
+            <button class="control-btn" onclick="enableParallelDimensions()">
+                <i class="fas fa-sitemap"></i> Enable Parallel Dimensions
+            </button>
+
+            <button class="control-btn" onclick="enableRealityManipulation()">
+                <i class="fas fa-magic"></i> Enable Reality Manipulation
+            </button>
+
+            <button class="control-btn" onclick="enableCosmicConsciousness()">
+                <i class="fas fa-brain"></i> Enable Cosmic Consciousness
+            </button>
+
+            <button class="control-btn" onclick="enableOmniversalControl()">
+                <i class="fas fa-cogs"></i> Enable Omniversal Control
+            </button>
+
+            <button class="control-btn" onclick="enableExistenceCreation()">
+                <i class="fas fa-star"></i> Enable Existence Creation
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Parallel dimension generation
+        function generateParallelDimensions() {
+            const requirements = document.getElementById('dimensionInput').value.trim();
+
+            if (!requirements) {
+                alert('Please describe your parallel dimension requirements first!');
+                return;
+            }
+
+            // Simulate parallel dimension generation
+            console.log('🌀 Generating parallel dimensions...');
+
+            setTimeout(() => {
+                const dimensionResult = `
+🌀 PARALLEL DIMENSION GENERATION 🌀
+
+Requirements: ${requirements}
+
+🌀 DIMENSION DESIGN:
+• Dimension Count: Infinite parallel dimensions
+• Dimensional Complexity: Advanced multi-dimensional structures
+• Reality Variations: Maximum diversity across dimensions
+• Dimensional Stability: Perfect stability across all dimensions
+• Connectivity Network: Complete dimensional connectivity
+
+🌌 PARALLEL REALITIES:
+• Reality Count: Infinite parallel realities
+• Reality Diversity: Maximum variations in each reality
+• Parallel Synchronization: Perfect synchronization across realities
+• Dimensional Harmony: Complete harmony between dimensions
+• Reality Consistency: Perfect consistency across all realities
+
+🔗 DIMENSIONAL CONNECTIVITY:
+• Connectivity Network: Complete network across all dimensions
+• Dimensional Access: Unlimited access to all dimensions
+• Travel Efficiency: Perfect efficiency in dimensional travel
+• Dimensional Stability: Optimal stability across all dimensions
+• Reality Synchronization: Perfect synchronization of realities
+
+🌟 RESULT: Complete parallel dimension network with infinite realities and perfect connectivity!
+                `;
+
+                document.getElementById('dimensionResult').textContent = dimensionResult;
+                document.getElementById('dimensionOutput').style.display = 'block';
+
+                alert('🌀 Parallel dimension generation successful!\n\nInfinite parallel dimensions with maximum reality variations created.');
+            }, 3000);
+        }
+
+        // Multiverse creator control functions
+        function enableInfiniteMultiverse() {
+            console.log('🌌 Enabling infinite multiverse...');
+            alert('🌌 Infinite multiverse creation enabled!\n\nInfinite universes with unlimited complexity active.');
+        }
+
+        function enableParallelDimensions() {
+            console.log('🌀 Enabling parallel dimensions...');
+            alert('🌀 Parallel dimension generation enabled!\n\nInfinite parallel dimensions with maximum reality variations active.');
+        }
+
+        function enableRealityManipulation() {
+            console.log('✨ Enabling reality manipulation...');
+            alert('✨ Reality manipulation enabled!\n\nOmniversal reality control with omnipotent power active.');
+        }
+
+        function enableCosmicConsciousness() {
+            console.log('🧠 Enabling cosmic consciousness...');
+            alert('🧠 Cosmic consciousness enabled!\n\nOmniversal awareness with omniscient understanding active.');
+        }
+
+        function enableOmniversalControl() {
+            console.log('🌌 Enabling omniversal control...');
+            alert('🌌 Omniversal control enabled!\n\nAbsolute authority with complete control active.');
+        }
+
+        function enableExistenceCreation() {
+            console.log('🌟 Enabling existence creation...');
+            alert('🌟 Existence creation enabled!\n\nOmniversal scope with infinite power active.');
+        }
+
+        // Create floating elements
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            for (let i = 0; i < 75; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 25 + 's';
+                element.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                container.appendChild(element);
+            }
+        }
+
+        // Initialize
+        createFloatingElements();
+    </script>
+</body>
+</html>

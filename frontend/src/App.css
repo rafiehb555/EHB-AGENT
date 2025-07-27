@@ -1,0 +1,302 @@
+/* 🚀 EHB AI Robot App Styles */
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.app-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Floating Robot Button */
+.floating-robot-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: var(--z-fixed);
+  cursor: pointer;
+}
+
+.robot-status-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  min-width: 80px;
+}
+
+.robot-status-indicator:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.robot-status-indicator.connected {
+  border-color: var(--success-color);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.robot-status-indicator.disconnected {
+  border-color: var(--error-color);
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+.robot-icon {
+  font-size: 2rem;
+  animation: pulse 2s infinite;
+}
+
+.robot-status-indicator.connected .robot-icon {
+  animation: none;
+}
+
+.status-text {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .floating-robot-button {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .robot-status-indicator {
+    padding: 0.75rem;
+    min-width: 60px;
+  }
+
+  .robot-icon {
+    font-size: 1.5rem;
+  }
+
+  .status-text {
+    font-size: 0.625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 0.5rem;
+  }
+
+  .floating-robot-button {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .robot-status-indicator {
+    padding: 0.5rem;
+    min-width: 50px;
+  }
+
+  .robot-icon {
+    font-size: 1.25rem;
+  }
+
+  .status-text {
+    font-size: 0.5rem;
+  }
+}
+
+/* Loading States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Error States */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+  color: var(--error-color);
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.error-description {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Success States */
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+  color: var(--success-color);
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.success-description {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Empty States */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-message {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.empty-description {
+  font-size: var(--font-size-base);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Scrollbar for main content */
+.main-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-gradient);
+}
+
+/* Focus states for accessibility */
+.floating-robot-button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .robot-status-indicator {
+    border-width: 2px;
+  }
+
+  .robot-status-indicator.connected {
+    border-color: #00ff00;
+  }
+
+  .robot-status-indicator.disconnected {
+    border-color: #ff0000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .robot-icon {
+    animation: none;
+  }
+
+  .floating-robot-button {
+    transition: none;
+  }
+
+  .robot-status-indicator {
+    transition: none;
+  }
+
+  .robot-status-indicator:hover {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .floating-robot-button {
+    display: none;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+}

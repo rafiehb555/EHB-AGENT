@@ -1,0 +1,219 @@
+{
+  "company_name": "EHB (Excellence in Healthcare Business)",
+  "company_description": "Healthcare technology company specializing in innovative solutions for healthcare delivery",
+  "version": "1.0.0",
+  "backup_frequency": "daily",
+  "auto_validation": true,
+  "auto_backup": true,
+  "logging_level": "INFO",
+  "performance_thresholds": {
+    "frontend_load_time": 3000,
+    "api_response_time": 200,
+    "bundle_size": 500000,
+    "code_coverage_minimum": 80,
+    "security_score_minimum": 90,
+    "accessibility_score_minimum": 95,
+    "compliance_score_minimum": 100
+  },
+  "compliance_requirements": [
+    "HIPAA",
+    "GDPR",
+    "WCAG_2.1_AA",
+    "FDA_21_CFR_Part_11",
+    "SOC_2_Type_II"
+  ],
+  "security_requirements": [
+    "encryption",
+    "authentication",
+    "authorization",
+    "audit_logging",
+    "data_retention",
+    "breach_notification",
+    "data_masking",
+    "secure_communication"
+  ],
+  "accessibility_requirements": [
+    "high_contrast",
+    "keyboard_navigation",
+    "screen_reader_support",
+    "focus_indicators",
+    "alt_text",
+    "semantic_html",
+    "color_independence"
+  ],
+  "notification_emails": [
+    "security@ehb.com",
+    "compliance@ehb.com",
+    "development@ehb.com"
+  ],
+  "integrations": {
+    "git": true,
+    "slack": false,
+    "jira": false,
+    "email": false,
+    "github": false,
+    "gitlab": false,
+    "azure_devops": false
+  },
+  "project_types": {
+    "patient-management": {
+      "description": "Patient registration and management systems",
+      "technology_stack": ["React.js", "Node.js", "PostgreSQL"],
+      "timeline": "3-6 months",
+      "budget_range": [50000, 150000],
+      "team_size": [3, 6],
+      "compliance_requirements": ["HIPAA", "GDPR"],
+      "security_requirements": ["encryption", "authentication", "authorization", "audit_logging"]
+    },
+    "ehr-system": {
+      "description": "Electronic Health Records systems",
+      "technology_stack": ["React.js", "Python/FastAPI", "PostgreSQL"],
+      "timeline": "6-12 months",
+      "budget_range": [100000, 300000],
+      "team_size": [5, 10],
+      "compliance_requirements": ["HIPAA", "GDPR", "FDA_21_CFR_Part_11"],
+      "security_requirements": ["encryption", "authentication", "authorization", "audit_logging", "data_retention"]
+    },
+    "telemedicine": {
+      "description": "Telemedicine and remote care platforms",
+      "technology_stack": ["React.js", "Node.js", "WebRTC"],
+      "timeline": "4-8 months",
+      "budget_range": [75000, 200000],
+      "team_size": [4, 8],
+      "compliance_requirements": ["HIPAA", "GDPR"],
+      "security_requirements": ["encryption", "authentication", "authorization", "secure_communication"]
+    },
+    "healthcare-analytics": {
+      "description": "Healthcare data analytics and insights",
+      "technology_stack": ["React.js", "Python", "PostgreSQL", "Redis"],
+      "timeline": "5-10 months",
+      "budget_range": [80000, 250000],
+      "team_size": [4, 8],
+      "compliance_requirements": ["HIPAA", "GDPR"],
+      "security_requirements": ["encryption", "authentication", "authorization", "data_masking"]
+    }
+  },
+  "brand_colors": {
+    "primary_blue": "#2563EB",
+    "healthcare_green": "#10B981",
+    "professional_gray": "#6B7280",
+    "success_green": "#22C55E",
+    "error_red": "#EF4444",
+    "light_blue": "#DBEAFE",
+    "warning_orange": "#F59E0B",
+    "white": "#FFFFFF",
+    "light_gray": "#F9FAFB",
+    "dark_gray": "#1F2937"
+  },
+  "typography": {
+    "font_family": "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif",
+    "heading_weight": "600-700",
+    "body_weight": "400-500",
+    "sizes": {
+      "h1": "2.25rem (36px)",
+      "h2": "1.875rem (30px)",
+      "h3": "1.5rem (24px)",
+      "h4": "1.25rem (20px)",
+      "body": "1rem (16px)",
+      "small": "0.875rem (14px)"
+    }
+  },
+  "technology_stack": {
+    "frontend": ["React.js", "Angular", "Vue.js"],
+    "backend": ["Node.js", "Python", "Java"],
+    "database": ["PostgreSQL", "MongoDB", "MySQL"],
+    "cloud": ["AWS", "Azure", "Google Cloud"],
+    "mobile": ["React Native", "Flutter"],
+    "ai": ["TensorFlow", "PyTorch", "Scikit-learn"]
+  },
+  "healthcare_standards": {
+    "data_interoperability": "HL7 FHIR",
+    "disease_classification": "ICD-10",
+    "procedure_codes": "CPT codes",
+    "lab_observations": "LOINC",
+    "clinical_terminology": "SNOMED CT"
+  },
+  "emergency_contacts": {
+    "security": "security@ehb.com",
+    "privacy": "privacy@ehb.com",
+    "emergency_tech": "emergency-tech@ehb.com",
+    "safety": "safety@ehb.com",
+    "clinical_support": "clinical-support@ehb.com",
+    "compliance": "compliance@ehb.com"
+  },
+  "response_time_standards": {
+    "urgent": "< 1 hour",
+    "high_priority": "< 4 hours",
+    "normal_priority": "< 24 hours",
+    "low_priority": "< 48 hours"
+  },
+  "file_structure": {
+    "company-info": {
+      "index.md": "Complete company information index",
+      "company-profile.md": "Company mission, vision, and values",
+      "brand-guidelines.md": "Design standards and brand colors",
+      "team-structure.md": "Organizational structure and roles",
+      "contact-info.md": "Contact details and communication guidelines"
+    },
+    "development-guidelines": {
+      "standards.md": "Coding standards and best practices"
+    },
+    "project-docs": {
+      "requirements.md": "Healthcare project requirements"
+    }
+  },
+  "automation_settings": {
+    "auto_validate_on_create": true,
+    "auto_generate_reports": true,
+    "auto_backup_on_update": true,
+    "auto_notify_on_issues": true,
+    "auto_export_on_completion": true
+  },
+  "reporting_settings": {
+    "generate_weekly_reports": true,
+    "generate_monthly_reports": true,
+    "generate_quarterly_reports": true,
+    "include_performance_metrics": true,
+    "include_compliance_status": true,
+    "include_security_alerts": true,
+    "include_recommendations": true
+  },
+  "validation_settings": {
+    "check_hipaa_compliance": true,
+    "check_accessibility": true,
+    "check_performance": true,
+    "check_security": true,
+    "check_code_quality": true,
+    "check_documentation": true
+  },
+  "backup_settings": {
+    "backup_company_info": true,
+    "backup_projects": true,
+    "backup_metrics": true,
+    "backup_reports": true,
+    "backup_config": true,
+    "compress_backups": true,
+    "encrypt_backups": false
+  },
+  "export_settings": {
+    "include_company_info": true,
+    "include_projects": true,
+    "include_metrics": true,
+    "include_reports": true,
+    "include_config": true,
+    "format_options": ["json", "yaml", "csv"],
+    "compression": false
+  },
+  "monitoring_settings": {
+    "monitor_disk_usage": true,
+    "monitor_performance": true,
+    "monitor_security": true,
+    "monitor_compliance": true,
+    "alert_thresholds": {
+      "disk_usage_percent": 80,
+      "performance_score": 85,
+      "security_score": 90,
+      "compliance_score": 95
+    }
+  }
+} 

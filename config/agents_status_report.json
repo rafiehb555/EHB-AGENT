@@ -1,0 +1,1966 @@
+{
+  "timestamp": "2025-07-23T00:17:24.349660",
+  "project_name": "EHB AI Development System",
+  "total_agents": 44,
+  "working_agents": 44,
+  "running_agents": 44,
+  "not_working_agents": 0,
+  "error_agents": 0,
+  "categories": {
+    "working_and_running": [
+      {
+        "name": "backups",
+        "type": "Agent Directory",
+        "path": "agents\\backups",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-backups-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "configs",
+        "type": "Agent Directory",
+        "path": "agents\\configs",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-configs-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "core",
+        "type": "Agent Directory",
+        "path": "agents\\core",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-core-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "cursor-agent",
+        "type": "Agent Directory",
+        "path": "agents\\cursor-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-cursor-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "deployment-agent",
+        "type": "Agent Directory",
+        "path": "agents\\deployment-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-deployment-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "docker-agent",
+        "type": "Agent Directory",
+        "path": "agents\\docker-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-docker-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "documentation-agent",
+        "type": "Agent Directory",
+        "path": "agents\\documentation-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-documentation-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "ehb-base-agent",
+        "type": "Agent Directory",
+        "path": "agents\\ehb-base-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-dev-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "analyze",
+            "assign-tasks",
+            "status",
+            "report",
+            "test",
+            "install-global",
+            "uninstall-global"
+          ]
+        }
+      },
+      {
+        "name": "exports",
+        "type": "Agent Directory",
+        "path": "agents\\exports",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-exports-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "fixer",
+        "type": "Agent Directory",
+        "path": "agents\\fixer",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-fixer-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "healthAgent",
+        "type": "Agent Directory",
+        "path": "agents\\healthAgent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-health-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "healthcare-compliance",
+        "type": "Agent Directory",
+        "path": "agents\\healthcare-compliance",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-healthcare-compliance",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "hipaa-agent",
+        "type": "Agent Directory",
+        "path": "agents\\hipaa-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-hipaa-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "localizer",
+        "type": "Agent Directory",
+        "path": "agents\\localizer",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-localizer-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "logs",
+        "type": "Agent Directory",
+        "path": "agents\\logs",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-logs-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "medical-data-agent",
+        "type": "Agent Directory",
+        "path": "agents\\medical-data-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-medical-data-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "memory",
+        "type": "Agent Directory",
+        "path": "agents\\memory",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-memory-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "multi-agent-system",
+        "type": "Agent Directory",
+        "path": "agents\\multi-agent-system",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-multi-agent-system",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "node_modules",
+        "type": "Agent Directory",
+        "path": "agents\\node_modules",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-node-modules-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "publicModules",
+        "type": "Agent Directory",
+        "path": "agents\\publicModules",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-public-modules-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "reports",
+        "type": "Agent Directory",
+        "path": "agents\\reports",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-reports-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "security-agent",
+        "type": "Agent Directory",
+        "path": "agents\\security-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-security-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "temp",
+        "type": "Agent Directory",
+        "path": "agents\\temp",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-temp-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "templates",
+        "type": "Agent Directory",
+        "path": "agents\\templates",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-templates-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "testing-agent",
+        "type": "Agent Directory",
+        "path": "agents\\testing-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-testing-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "watchdog",
+        "type": "Agent Directory",
+        "path": "agents\\watchdog",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-watchdog-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "__pycache__",
+        "type": "Agent Directory",
+        "path": "agents\\__pycache__",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-python-cache-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "backend-agent",
+        "type": "EHB Agent Directory",
+        "path": "ehb-agents\\backend-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": false,
+          "has_python": false
+        }
+      },
+      {
+        "name": "deployment-agent",
+        "type": "EHB Agent Directory",
+        "path": "ehb-agents\\deployment-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": false,
+          "has_python": false
+        }
+      },
+      {
+        "name": "frontend-agent",
+        "type": "EHB Agent Directory",
+        "path": "ehb-agents\\frontend-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": false,
+          "has_python": false
+        }
+      },
+      {
+        "name": "healthcare-agent",
+        "type": "EHB Agent Directory",
+        "path": "ehb-agents\\healthcare-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": false,
+          "has_python": false
+        }
+      },
+      {
+        "name": "security-agent",
+        "type": "EHB Agent Directory",
+        "path": "ehb-agents\\security-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": false,
+          "has_python": false
+        }
+      },
+      {
+        "name": "testing-agent",
+        "type": "EHB Agent Directory",
+        "path": "ehb-agents\\testing-agent",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": false,
+          "has_python": false
+        }
+      },
+      {
+        "name": "communication",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\communication",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-communication-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "core",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\core",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-core-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "decision_making",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\decision_making",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-decision-making-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "execution",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\execution",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-execution-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "learning",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\learning",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-learning-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "memory",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\memory",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-memory-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "models",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\models",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-models-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "monitoring",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\monitoring",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-monitoring-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "optimization",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\optimization",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-optimization-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "planning",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\planning",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-planning-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      },
+      {
+        "name": "tools",
+        "type": "AI Agent Directory",
+        "path": "ai_agents\\tools",
+        "status": {
+          "status": "active",
+          "working": true,
+          "running": true,
+          "has_js_files": true,
+          "has_python_files": false
+        },
+        "functionality": {
+          "has_package": true,
+          "name": "ehb-ai-tools-agent",
+          "version": "1.0.0",
+          "scripts": [
+            "start",
+            "dev",
+            "test",
+            "build"
+          ]
+        }
+      }
+    ],
+    "working_not_running": [],
+    "not_working": [],
+    "error": []
+  },
+  "agents": [
+    {
+      "name": "backups",
+      "type": "Agent Directory",
+      "path": "agents\\backups",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-backups-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "configs",
+      "type": "Agent Directory",
+      "path": "agents\\configs",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-configs-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "core",
+      "type": "Agent Directory",
+      "path": "agents\\core",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-core-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "cursor-agent",
+      "type": "Agent Directory",
+      "path": "agents\\cursor-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-cursor-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "deployment-agent",
+      "type": "Agent Directory",
+      "path": "agents\\deployment-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-deployment-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "docker-agent",
+      "type": "Agent Directory",
+      "path": "agents\\docker-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-docker-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "documentation-agent",
+      "type": "Agent Directory",
+      "path": "agents\\documentation-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-documentation-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "ehb-base-agent",
+      "type": "Agent Directory",
+      "path": "agents\\ehb-base-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-dev-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "analyze",
+          "assign-tasks",
+          "status",
+          "report",
+          "test",
+          "install-global",
+          "uninstall-global"
+        ]
+      }
+    },
+    {
+      "name": "exports",
+      "type": "Agent Directory",
+      "path": "agents\\exports",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-exports-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "fixer",
+      "type": "Agent Directory",
+      "path": "agents\\fixer",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-fixer-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "healthAgent",
+      "type": "Agent Directory",
+      "path": "agents\\healthAgent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-health-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "healthcare-compliance",
+      "type": "Agent Directory",
+      "path": "agents\\healthcare-compliance",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-healthcare-compliance",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "hipaa-agent",
+      "type": "Agent Directory",
+      "path": "agents\\hipaa-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-hipaa-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "localizer",
+      "type": "Agent Directory",
+      "path": "agents\\localizer",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-localizer-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "logs",
+      "type": "Agent Directory",
+      "path": "agents\\logs",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-logs-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "medical-data-agent",
+      "type": "Agent Directory",
+      "path": "agents\\medical-data-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-medical-data-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "memory",
+      "type": "Agent Directory",
+      "path": "agents\\memory",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-memory-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "multi-agent-system",
+      "type": "Agent Directory",
+      "path": "agents\\multi-agent-system",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-multi-agent-system",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "node_modules",
+      "type": "Agent Directory",
+      "path": "agents\\node_modules",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-node-modules-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "publicModules",
+      "type": "Agent Directory",
+      "path": "agents\\publicModules",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-public-modules-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "reports",
+      "type": "Agent Directory",
+      "path": "agents\\reports",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-reports-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "security-agent",
+      "type": "Agent Directory",
+      "path": "agents\\security-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-security-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "temp",
+      "type": "Agent Directory",
+      "path": "agents\\temp",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-temp-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "templates",
+      "type": "Agent Directory",
+      "path": "agents\\templates",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-templates-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "testing-agent",
+      "type": "Agent Directory",
+      "path": "agents\\testing-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-testing-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "watchdog",
+      "type": "Agent Directory",
+      "path": "agents\\watchdog",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-watchdog-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "__pycache__",
+      "type": "Agent Directory",
+      "path": "agents\\__pycache__",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-python-cache-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "backend-agent",
+      "type": "EHB Agent Directory",
+      "path": "ehb-agents\\backend-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": false,
+        "has_python": false
+      }
+    },
+    {
+      "name": "deployment-agent",
+      "type": "EHB Agent Directory",
+      "path": "ehb-agents\\deployment-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": false,
+        "has_python": false
+      }
+    },
+    {
+      "name": "frontend-agent",
+      "type": "EHB Agent Directory",
+      "path": "ehb-agents\\frontend-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": false,
+        "has_python": false
+      }
+    },
+    {
+      "name": "healthcare-agent",
+      "type": "EHB Agent Directory",
+      "path": "ehb-agents\\healthcare-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": false,
+        "has_python": false
+      }
+    },
+    {
+      "name": "security-agent",
+      "type": "EHB Agent Directory",
+      "path": "ehb-agents\\security-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": false,
+        "has_python": false
+      }
+    },
+    {
+      "name": "testing-agent",
+      "type": "EHB Agent Directory",
+      "path": "ehb-agents\\testing-agent",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": false,
+        "has_python": false
+      }
+    },
+    {
+      "name": "communication",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\communication",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-communication-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "core",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\core",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-core-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "decision_making",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\decision_making",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-decision-making-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "execution",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\execution",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-execution-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "learning",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\learning",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-learning-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "memory",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\memory",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-memory-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "models",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\models",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-models-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "monitoring",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\monitoring",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-monitoring-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "optimization",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\optimization",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-optimization-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "planning",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\planning",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-planning-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    },
+    {
+      "name": "tools",
+      "type": "AI Agent Directory",
+      "path": "ai_agents\\tools",
+      "status": {
+        "status": "active",
+        "working": true,
+        "running": true,
+        "has_js_files": true,
+        "has_python_files": false
+      },
+      "functionality": {
+        "has_package": true,
+        "name": "ehb-ai-tools-agent",
+        "version": "1.0.0",
+        "scripts": [
+          "start",
+          "dev",
+          "test",
+          "build"
+        ]
+      }
+    }
+  ]
+}

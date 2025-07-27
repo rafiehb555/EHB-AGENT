@@ -1,0 +1,116 @@
+{
+  "name": "EHB Agent Hub",
+  "version": "1.0.0",
+  "agents": {
+    "healthcare-compliance": {
+      "name": "Healthcare Compliance Agent",
+      "type": "compliance",
+      "dependencies": [
+        "hipaa-validator",
+        "gdpr-checker"
+      ],
+      "files": [
+        "compliance-agent.js",
+        "compliance-config.json"
+      ],
+      "commands": [
+        "npm install"
+      ]
+    },
+    "hipaa-agent": {
+      "name": "hipaa-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    },
+    "medical-data-agent": {
+      "name": "medical-data-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    },
+    "docker-agent": {
+      "name": "docker-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    },
+    "deployment-agent": {
+      "name": "deployment-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    },
+    "cursor-agent": {
+      "name": "Cursor Integration Agent",
+      "type": "ide",
+      "dependencies": [
+        "cursor-api",
+        "ide-integration"
+      ],
+      "files": [
+        "cursor-agent.js",
+        "cursor-config.json"
+      ],
+      "commands": [
+        "npm install"
+      ]
+    },
+    "testing-agent": {
+      "name": "testing-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    },
+    "security-agent": {
+      "name": "security-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    },
+    "documentation-agent": {
+      "name": "documentation-agent",
+      "type": "generic",
+      "dependencies": [],
+      "files": [],
+      "commands": []
+    }
+  },
+  "integrations": {
+    "cursor": {
+      "type": "ide",
+      "status": "active",
+      "config": {
+        "autoComplete": true,
+        "suggestions": true
+      }
+    },
+    "github": {
+      "type": "vcs",
+      "status": "active",
+      "config": {
+        "autoCommit": true,
+        "autoPush": true
+      }
+    },
+    "healthcare-apis": {
+      "type": "api",
+      "status": "active",
+      "config": {
+        "hl7": true,
+        "fhir": true,
+        "hipaa": true
+      }
+    }
+  },
+  "autoSetup": true,
+  "healthcareCompliance": true,
+  "projectType": "docker",
+  "lastUpdated": "2025-07-15T20:18:07.329Z"
+}

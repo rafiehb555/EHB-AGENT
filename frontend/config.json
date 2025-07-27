@@ -1,0 +1,9 @@
+{
+  "name": "Frontend Agent",
+  "type": "frontend",
+  "features": [
+    "react",
+    "typescript",
+    "ui-optimization"
+  ]
+}

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB Agent - Advanced Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #4CAF50, #2196F3, #9C27B0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .agent-status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .agent-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .agent-status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        .status-active {
+            background: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .status-busy {
+            background: #FF9800;
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+        }
+
+        .status-error {
+            background: #f44336;
+            box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+        }
+
+        .realtime-log {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem;
+            border-radius: 5px;
+        }
+
+        .log-info {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 3px solid #4CAF50;
+        }
+
+        .log-warning {
+            background: rgba(255, 152, 0, 0.1);
+            border-left: 3px solid #FF9800;
+        }
+
+        .log-error {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 3px solid #f44336;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>EHB Agent - Advanced Analytics Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" onclick="refreshData()">🔄 Refresh Data</button>
+            <button class="btn btn-secondary" onclick="toggleRealTime()">📡 Toggle Real-time</button>
+            <button class="btn btn-secondary" onclick="exportData()">📊 Export Data</button>
+            <button class="btn btn-secondary" onclick="clearLogs()">🗑️ Clear Logs</button>
+        </div>
+
+        <!-- Statistics Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalAgents">0</div>
+                <div class="stat-label">Total Agents</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeAgents">0</div>
+                <div class="stat-label">Active Agents</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Completed Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="systemUptime">0</div>
+                <div class="stat-label">System Uptime (hrs)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgResponseTime">0</div>
+                <div class="stat-label">Avg Response Time (ms)</div>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title">Agent Performance</div>
+                <canvas id="agentPerformanceChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">Task Completion Rate</div>
+                <canvas id="taskCompletionChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">System Resource Usage</div>
+                <canvas id="resourceUsageChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">Error Rate Over Time</div>
+                <canvas id="errorRateChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Agent Status Grid -->
+        <div class="agent-status-grid" id="agentStatusGrid">
+            <!-- Agent cards will be populated here -->
+        </div>
+
+        <!-- Real-time Log -->
+        <div class="chart-container">
+            <div class="chart-title">Real-time System Log</div>
+            <div class="realtime-log" id="realtimeLog">
+                <div class="log-entry log-info">🚀 Analytics dashboard initialized...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Socket.io connection
+        const socket = io('http://localhost:4000');
+        let realTimeEnabled = true;
+        let charts = {};
+
+        // Initialize charts
+        function initializeCharts() {
+            // Agent Performance Chart
+            const agentCtx = document.getElementById('agentPerformanceChart').getContext('2d');
+            charts.agentPerformance = new Chart(agentCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Performance Score',
+                        data: [],
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: 'white' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: 'white' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        },
+                        x: {
+                            ticks: { color: 'white' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        }
+                    }
+                }
+            });
+
+            // Task Completion Chart
+            const taskCtx = document.getElementById('taskCompletionChart').getContext('2d');
+            charts.taskCompletion = new Chart(taskCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'In Progress', 'Failed'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: ['#4CAF50', '#FF9800', '#f44336']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: 'white' }
+                        }
+                    }
+                }
+            });
+
+            // Resource Usage Chart
+            const resourceCtx = document.getElementById('resourceUsageChart').getContext('2d');
+            charts.resourceUsage = new Chart(resourceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['CPU', 'Memory', 'Network', 'Storage'],
+                    datasets: [{
+                        label: 'Usage %',
+                        data: [0, 0, 0, 0],
+                        backgroundColor: ['#2196F3', '#9C27B0', '#FF9800', '#4CAF50']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: 'white' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: 'white' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        },
+                        x: {
+                            ticks: { color: 'white' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        }
+                    }
+                }
+            });
+
+            // Error Rate Chart
+            const errorCtx = document.getElementById('errorRateChart').getContext('2d');
+            charts.errorRate = new Chart(errorCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Error Rate',
+                        data: [],
+                        borderColor: '#f44336',
+                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: 'white' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: 'white' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        },
+                        x: {
+                            ticks: { color: 'white' },
+                            grid: { color: 'rgba(255,255,255,0.1)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update statistics
+        function updateStats(data) {
+            document.getElementById('totalAgents').textContent = data.totalAgents || 0;
+            document.getElementById('activeAgents').textContent = data.activeAgents || 0;
+            document.getElementById('totalTasks').textContent = data.totalTasks || 0;
+            document.getElementById('completedTasks').textContent = data.completedTasks || 0;
+            document.getElementById('systemUptime').textContent = data.systemUptime || 0;
+            document.getElementById('avgResponseTime').textContent = data.avgResponseTime || 0;
+        }
+
+        // Update agent status grid
+        function updateAgentStatus(agents) {
+            const grid = document.getElementById('agentStatusGrid');
+            grid.innerHTML = '';
+
+            Object.entries(agents).forEach(([name, agent]) => {
+                const card = document.createElement('div');
+                card.className = 'agent-card';
+
+                const statusClass = agent.status === 'ready' ? 'status-active' :
+                                  agent.status === 'busy' ? 'status-busy' : 'status-error';
+
+                card.innerHTML = `
+                    <div class="agent-status-indicator ${statusClass}"></div>
+                    <strong>${name}</strong>
+                    <p>${agent.type}</p>
+                    <small>Tasks: ${agent.taskCount || 0}</small>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Add log entry
+        function addLogEntry(message, type = 'info') {
+            const log = document.getElementById('realtimeLog');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+
+            // Keep only last 100 entries
+            while (log.children.length > 100) {
+                log.removeChild(log.firstChild);
+            }
+        }
+
+        // Refresh data from API
+        async function refreshData() {
+            try {
+                const [statsResponse, agentsResponse] = await Promise.all([
+                    fetch('http://localhost:4000/api/stats'),
+                    fetch('http://localhost:4000/api/agents/status')
+                ]);
+
+                const stats = await statsResponse.json();
+                const agents = await agentsResponse.json();
+
+                updateStats(stats);
+                updateAgentStatus(agents.agents);
+                addLogEntry('Data refreshed successfully', 'info');
+            } catch (error) {
+                addLogEntry(`Error refreshing data: ${error.message}`, 'error');
+            }
+        }
+
+        // Toggle real-time updates
+        function toggleRealTime() {
+            realTimeEnabled = !realTimeEnabled;
+            addLogEntry(`Real-time updates ${realTimeEnabled ? 'enabled' : 'disabled'}`, 'info');
+        }
+
+        // Export data
+        function exportData() {
+            const data = {
+                timestamp: new Date().toISOString(),
+                stats: {
+                    totalAgents: document.getElementById('totalAgents').textContent,
+                    activeAgents: document.getElementById('activeAgents').textContent,
+                    totalTasks: document.getElementById('totalTasks').textContent,
+                    completedTasks: document.getElementById('completedTasks').textContent
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ehb-analytics-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+
+            addLogEntry('Data exported successfully', 'info');
+        }
+
+        // Clear logs
+        function clearLogs() {
+            document.getElementById('realtimeLog').innerHTML = '';
+            addLogEntry('Logs cleared', 'info');
+        }
+
+        // Socket.io event handlers
+        socket.on('connect', () => {
+            addLogEntry('Connected to real-time server', 'info');
+        });
+
+        socket.on('disconnect', () => {
+            addLogEntry('Disconnected from real-time server', 'warning');
+        });
+
+        socket.on('agent-status-update', (data) => {
+            if (realTimeEnabled) {
+                addLogEntry(`Agent ${data.agentName} status: ${data.status}`, 'info');
+                updateCharts(data);
+            }
+        });
+
+        socket.on('task-update', (data) => {
+            if (realTimeEnabled) {
+                addLogEntry(`Task ${data.taskId} ${data.status}`, 'info');
+                updateCharts(data);
+            }
+        });
+
+        socket.on('system-alert', (data) => {
+            addLogEntry(`System Alert: ${data.message}`, data.severity === 'error' ? 'error' : 'warning');
+        });
+
+        // Update charts with new data
+        function updateCharts(data) {
+            // Update agent performance chart
+            if (charts.agentPerformance && data.metrics?.performanceScore) {
+                const chart = charts.agentPerformance;
+                const now = new Date().toLocaleTimeString();
+
+                chart.data.labels.push(now);
+                chart.data.datasets[0].data.push(data.metrics.performanceScore);
+
+                // Keep only last 20 data points
+                if (chart.data.labels.length > 20) {
+                    chart.data.labels.shift();
+                    chart.data.datasets[0].data.shift();
+                }
+
+                chart.update();
+            }
+
+            // Update resource usage chart
+            if (charts.resourceUsage && data.metrics?.resources) {
+                const chart = charts.resourceUsage;
+                chart.data.datasets[0].data = [
+                    data.metrics.resources.cpu || 0,
+                    data.metrics.resources.memory || 0,
+                    data.metrics.resources.network || 0,
+                    data.metrics.resources.storage || 0
+                ];
+                chart.update();
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCharts();
+            refreshData();
+
+            // Auto-refresh every 30 seconds
+            setInterval(refreshData, 30000);
+
+            addLogEntry('Analytics dashboard initialized successfully', 'info');
+        });
+    </script>
+</body>
+</html>

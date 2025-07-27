@@ -1,0 +1,44 @@
+{
+  "autoPublishOnUsageCount": 5,
+  "publishTo": ["github", "npm", "ehb-showcase"],
+  "defaultLicense": "MIT",
+  "owner": "EHB Technologies",
+  "npmScope": "@ehb",
+  "githubOwner": "ehb-tech",
+  "showcaseSettings": {
+    "autoAddOnUsage": 3,
+    "maxShowcaseItems": 100,
+    "categories": ["frontend", "backend", "blockchain", "healthcare", "utility"]
+  },
+  "qualityChecks": {
+    "requireDocumentation": true,
+    "requireTests": false,
+    "requireLicense": true,
+    "minCodeLines": 10
+  },
+  "approvalWorkflow": {
+    "requireAdminApproval": false,
+    "autoApproveForVIP": true,
+    "notificationEmail": "admin@ehb.com"
+  },
+  "versioning": {
+    "autoVersionBump": true,
+    "semanticVersioning": true,
+    "changelogGeneration": true
+  },
+  "security": {
+    "scanForVulnerabilities": true,
+    "checkDependencies": true,
+    "validateLicenses": true
+  },
+  "monetization": {
+    "creatorShare": 0.9,
+    "platformFee": 0.1,
+    "loyaltyBonus": true
+  },
+  "notifications": {
+    "publishSuccess": true,
+    "publishFailure": true,
+    "usageMilestones": [5, 10, 25, 50, 100]
+  }
+} 

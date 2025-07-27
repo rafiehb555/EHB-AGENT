@@ -1,0 +1,56 @@
+{
+  "maxHistoryPerAgent": 1000,
+  "logFormat": "json",
+  "autoSummarizeEvery": 7,
+  "shareable": true,
+  "autoResume": true,
+  "maxSessions": 50,
+  "maxEntries": 10000,
+  "autoCompress": true,
+  "compressionThreshold": 1000,
+  "cleanupSettings": {
+    "contextsOlderThanDays": 30,
+    "sessionsOlderThanDays": 7,
+    "sharedMemoryOlderThanDays": 30
+  },
+  "memoryPaths": {
+    "contexts": "../data/memoryLog",
+    "sessions": "../data/sessions",
+    "sharedMemory": "../data/sharedMemory"
+  },
+  "features": {
+    "autoResumeSessions": true,
+    "contextSearch": true,
+    "sharedKnowledge": true,
+    "bestPractices": true,
+    "errorSolutions": true,
+    "agentKnowledge": true
+  },
+  "categories": [
+    "frontend",
+    "backend",
+    "blockchain",
+    "healthcare",
+    "education",
+    "finance",
+    "general",
+    "error-solutions",
+    "agent-knowledge",
+    "best-practice"
+  ],
+  "priorities": [
+    "low",
+    "normal",
+    "high",
+    "critical"
+  ],
+  "types": [
+    "info",
+    "action",
+    "decision",
+    "error",
+    "solution",
+    "knowledge",
+    "best-practice"
+  ]
+} 
