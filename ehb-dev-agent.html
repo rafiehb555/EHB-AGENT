@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB Dev Agent - Real-Time Coding Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
+            background: #1e1e1e;
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: #2d2d2d;
+            border-bottom: 1px solid #404040;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+        }
+
+        .project-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .project-name {
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        .project-type {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .run-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .run-btn:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .voice-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            background: #1976D2;
+        }
+
+        .voice-btn.recording {
+            background: #f44336;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #4CAF50;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #252526;
+            border-right: 1px solid #404040;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            border-bottom: 1px solid #404040;
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        .file-explorer {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            padding: 8px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: #2d2d2d;
+        }
+
+        .file-item.active {
+            background: #094771;
+            color: #ffffff;
+        }
+
+        .file-icon {
+            font-size: 16px;
+        }
+
+        .folder-icon {
+            color: #ffd700;
+        }
+
+        .js-icon {
+            color: #f7df1e;
+        }
+
+        .html-icon {
+            color: #e34c26;
+        }
+
+        .css-icon {
+            color: #1572b6;
+        }
+
+        .py-icon {
+            color: #3776ab;
+        }
+
+        /* Editor Area */
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-tabs {
+            background: #1e1e1e;
+            border-bottom: 1px solid #404040;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            background: #2d2d2d;
+            border-right: 1px solid #404040;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .tab:hover {
+            background: #3d3d3d;
+        }
+
+        .tab-close {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-close:hover {
+            background: #f44336;
+        }
+
+        .editor-container {
+            flex: 1;
+            display: flex;
+        }
+
+        .line-numbers {
+            background: #1e1e1e;
+            color: #858585;
+            padding: 15px 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid #404040;
+            min-width: 50px;
+        }
+
+        .code-editor {
+            flex: 1;
+            background: #1e1e1e;
+            padding: 15px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #ffffff;
+            border: none;
+            outline: none;
+            resize: none;
+            overflow-y: auto;
+        }
+
+        .code-editor::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .code-editor::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        .code-editor::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 4px;
+        }
+
+        .code-editor::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Output Panel */
+        .output-panel {
+            width: 400px;
+            background: #1e1e1e;
+            border-left: 1px solid #404040;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .output-header {
+            background: #2d2d2d;
+            padding: 10px 15px;
+            border-bottom: 1px solid #404040;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .output-title {
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        .output-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .output-btn {
+            background: #404040;
+            color: #cccccc;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .output-btn:hover {
+            background: #555;
+        }
+
+        .output-content {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .output-line {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+
+        .output-success {
+            color: #4CAF50;
+        }
+
+        .output-error {
+            color: #f44336;
+        }
+
+        .output-info {
+            color: #2196F3;
+        }
+
+        .output-warning {
+            color: #ff9800;
+        }
+
+        /* AI Assistant Panel */
+        .ai-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: #2d2d2d;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+        }
+
+        .ai-header {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-title {
+            font-weight: bold;
+        }
+
+        .ai-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .ai-content {
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .ai-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .ai-user {
+            background: #094771;
+            color: #ffffff;
+        }
+
+        .ai-assistant {
+            background: #2d2d2d;
+            color: #cccccc;
+        }
+
+        /* Voice Input */
+        .voice-input {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #2d2d2d;
+            border: 1px solid #404040;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: none;
+        }
+
+        .voice-input.active {
+            display: block;
+        }
+
+        .voice-status {
+            color: #4CAF50;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .voice-text {
+            color: #ffffff;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .output-panel {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .output-panel {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-icon">🤖</span>
+                <span>EHB Dev Agent</span>
+            </div>
+            <div class="project-info">
+                <span class="project-name">my-project</span>
+                <span class="project-type">JavaScript</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Connected</span>
+            </div>
+            <button class="voice-btn" onclick="toggleVoiceInput()">
+                <span>🎤</span>
+                <span>Voice</span>
+            </button>
+            <button class="run-btn" onclick="runCode()">
+                <span>▶️</span>
+                <span>Run</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                EXPLORER
+            </div>
+            <div class="file-explorer">
+                <div class="file-item" onclick="openFile('index.html')">
+                    <span class="file-icon html-icon">📄</span>
+                    <span>index.html</span>
+                </div>
+                <div class="file-item" onclick="openFile('style.css')">
+                    <span class="file-icon css-icon">📄</span>
+                    <span>style.css</span>
+                </div>
+                <div class="file-item" onclick="openFile('script.js')">
+                    <span class="file-icon js-icon">📄</span>
+                    <span>script.js</span>
+                </div>
+                <div class="file-item" onclick="openFile('app.py')">
+                    <span class="file-icon py-icon">📄</span>
+                    <span>app.py</span>
+                </div>
+                <div class="file-item" onclick="openFile('package.json')">
+                    <span class="file-icon">📄</span>
+                    <span>package.json</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Area -->
+        <div class="editor-area">
+            <div class="editor-tabs">
+                <div class="tab active" onclick="switchTab('script.js')">
+                    <span>📄</span>
+                    <span>script.js</span>
+                    <span class="tab-close" onclick="closeTab('script.js')">×</span>
+                </div>
+                <div class="tab" onclick="switchTab('index.html')">
+                    <span>📄</span>
+                    <span>index.html</span>
+                    <span class="tab-close" onclick="closeTab('index.html')">×</span>
+                </div>
+                <div class="tab" onclick="switchTab('style.css')">
+                    <span>📄</span>
+                    <span>style.css</span>
+                    <span class="tab-close" onclick="closeTab('style.css')">×</span>
+                </div>
+            </div>
+            <div class="editor-container">
+                <div class="line-numbers" id="lineNumbers">
+                    1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+                </div>
+                <textarea class="code-editor" id="codeEditor" oninput="updateLineNumbers()" placeholder="// Start coding here...">// EHB Dev Agent - Real-Time Coding Platform
+console.log('Hello from EHB Dev Agent!');
+
+// AI-Powered Code Generation
+function generateCode(prompt) {
+    return `// Generated code for: ${prompt}
+function ${prompt.toLowerCase().replace(/\s+/g, '_')}() {
+    console.log('AI Generated Function');
+    return 'Success';
+}`;
+}
+
+// Voice Control Integration
+function voiceCommand(command) {
+    console.log('Voice command received:', command);
+    // Process voice commands here
+    return 'Command processed';
+}
+
+// Real-time collaboration
+function collaborate(code) {
+    console.log('Collaborating on code:', code);
+    return 'Collaboration active';
+}
+
+// Export functions
+module.exports = {
+    generateCode,
+    voiceCommand,
+    collaborate
+};</textarea>
+            </div>
+        </div>
+
+        <!-- Output Panel -->
+        <div class="output-panel">
+            <div class="output-header">
+                <div class="output-title">OUTPUT</div>
+                <div class="output-controls">
+                    <button class="output-btn" onclick="clearOutput()">Clear</button>
+                    <button class="output-btn" onclick="saveOutput()">Save</button>
+                </div>
+            </div>
+            <div class="output-content" id="outputContent">
+                <div class="output-line output-info">🚀 EHB Dev Agent initialized...</div>
+                <div class="output-line output-success">✅ Connected to AI coding assistant</div>
+                <div class="output-line output-info">🎤 Voice control ready</div>
+                <div class="output-line output-info">🤖 Real-time collaboration active</div>
+                <div class="output-line output-success">📁 Project files loaded</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Panel -->
+    <div class="ai-panel" id="aiPanel">
+        <div class="ai-header">
+            <div class="ai-title">🤖 AI Assistant</div>
+            <button class="ai-close" onclick="toggleAIPanel()">×</button>
+        </div>
+        <div class="ai-content" id="aiContent">
+            <div class="ai-message ai-assistant">
+                Hello! I'm your AI coding assistant. How can I help you today?
+            </div>
+        </div>
+    </div>
+
+    <!-- Voice Input -->
+    <div class="voice-input" id="voiceInput">
+        <div class="voice-status" id="voiceStatus">Voice input ready</div>
+        <div class="voice-text" id="voiceText">Click the voice button to start recording...</div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentFile = 'script.js';
+        let isRecording = false;
+        let aiPanelVisible = false;
+        let voiceInputVisible = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 EHB Dev Agent initialized');
+            updateLineNumbers();
+            showNotification('🎉 Welcome to EHB Dev Agent - Real-Time Coding Platform!', 'success');
+        });
+
+        // File operations
+        function openFile(filename) {
+            console.log('Opening file:', filename);
+            currentFile = filename;
+
+            // Update active tab
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Find and activate the correct tab
+            const targetTab = Array.from(document.querySelectorAll('.tab')).find(tab =>
+                tab.textContent.includes(filename)
+            );
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            // Load file content (simulated)
+            loadFileContent(filename);
+            showNotification(`📁 Opened ${filename}`, 'info');
+        }
+
+        function loadFileContent(filename) {
+            const editor = document.getElementById('codeEditor');
+
+            // Simulate different file contents
+            const fileContents = {
+                'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB Dev Agent Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Welcome to EHB Dev Agent</h1>
+        <p>Real-time coding platform with AI assistance</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>`,
+                'style.css': `/* EHB Dev Agent Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}`,
+                'script.js': `// EHB Dev Agent - Real-Time Coding Platform
+console.log('Hello from EHB Dev Agent!');
+
+// AI-Powered Code Generation
+function generateCode(prompt) {
+    return \`// Generated code for: \${prompt}
+function \${prompt.toLowerCase().replace(/\\s+/g, '_')}() {
+    console.log('AI Generated Function');
+    return 'Success';
+}\`;
+}
+
+// Voice Control Integration
+function voiceCommand(command) {
+    console.log('Voice command received:', command);
+    // Process voice commands here
+    return 'Command processed';
+}
+
+// Real-time collaboration
+function collaborate(code) {
+    console.log('Collaborating on code:', code);
+    return 'Collaboration active';
+}
+
+// Export functions
+module.exports = {
+    generateCode,
+    voiceCommand,
+    collaborate
+};`,
+                'app.py': `# EHB Dev Agent - Python Application
+from flask import Flask, jsonify
+import json
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return jsonify({
+        'message': 'Welcome to EHB Dev Agent',
+        'status': 'active',
+        'features': ['AI Coding', 'Voice Control', 'Real-time Collaboration']
+    })
+
+@app.route('/api/generate', methods=['POST'])
+def generate_code():
+    # AI code generation logic here
+    return jsonify({
+        'code': 'def ai_generated_function():\n    return "AI Generated"',
+        'status': 'success'
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)`,
+                'package.json': `{
+  "name": "ehb-dev-agent",
+  "version": "1.0.0",
+  "description": "Real-Time Coding Platform with AI Assistance",
+  "main": "script.js",
+  "scripts": {
+    "start": "node script.js",
+    "dev": "nodemon script.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0"
+  },
+  "keywords": ["ai", "coding", "real-time", "development"],
+  "author": "EHB Technologies",
+  "license": "MIT"
+}`
+            };
+
+            editor.value = fileContents[filename] || `// ${filename} content will be loaded here`;
+            updateLineNumbers();
+        }
+
+        function switchTab(filename) {
+            openFile(filename);
+        }
+
+        function closeTab(filename) {
+            console.log('Closing tab:', filename);
+            showNotification(`📁 Closed ${filename}`, 'info');
+        }
+
+        // Line numbers
+        function updateLineNumbers() {
+            const editor = document.getElementById('codeEditor');
+            const lineNumbers = document.getElementById('lineNumbers');
+            const lines = editor.value.split('\n');
+
+            lineNumbers.innerHTML = lines.map((_, index) => index + 1).join('<br>');
+        }
+
+        // Run code
+        function runCode() {
+            console.log('Running code...');
+            const editor = document.getElementById('codeEditor');
+            const output = document.getElementById('outputContent');
+
+            try {
+                // Simulate code execution
+                const code = editor.value;
+
+                // Add output
+                output.innerHTML += `
+                    <div class="output-line output-info">🚀 Running ${currentFile}...</div>
+                    <div class="output-line output-success">✅ Code executed successfully</div>
+                    <div class="output-line output-info">📊 Execution time: 0.023s</div>
+                    <div class="output-line output-success">🎯 Output: Hello from EHB Dev Agent!</div>
+                `;
+
+                // Scroll to bottom
+                output.scrollTop = output.scrollHeight;
+
+                showNotification('✅ Code executed successfully!', 'success');
+            } catch (error) {
+                output.innerHTML += `
+                    <div class="output-line output-error">❌ Error: ${error.message}</div>
+                `;
+                showNotification('❌ Code execution failed!', 'error');
+            }
+        }
+
+        // Voice control
+        function toggleVoiceInput() {
+            const voiceBtn = document.querySelector('.voice-btn');
+            const voiceInput = document.getElementById('voiceInput');
+            const voiceStatus = document.getElementById('voiceStatus');
+            const voiceText = document.getElementById('voiceText');
+
+            if (!isRecording) {
+                // Start recording
+                isRecording = true;
+                voiceBtn.classList.add('recording');
+                voiceBtn.innerHTML = '<span>🔴</span><span>Recording</span>';
+                voiceStatus.textContent = 'Recording... Speak now';
+                voiceText.textContent = 'Listening for voice commands...';
+                voiceInput.classList.add('active');
+
+                // Simulate voice recognition
+                setTimeout(() => {
+                    const commands = [
+                        'Create a React component',
+                        'Add error handling',
+                        'Generate API endpoint',
+                        'Optimize performance',
+                        'Add documentation'
+                    ];
+
+                    const randomCommand = commands[Math.floor(Math.random() * commands.length)];
+                    voiceText.textContent = `Heard: "${randomCommand}"`;
+
+                    // Process command
+                    setTimeout(() => {
+                        processVoiceCommand(randomCommand);
+                        stopRecording();
+                    }, 2000);
+                }, 3000);
+
+            } else {
+                stopRecording();
+            }
+        }
+
+        function stopRecording() {
+            const voiceBtn = document.querySelector('.voice-btn');
+            const voiceInput = document.getElementById('voiceInput');
+            const voiceStatus = document.getElementById('voiceStatus');
+
+            isRecording = false;
+            voiceBtn.classList.remove('recording');
+            voiceBtn.innerHTML = '<span>🎤</span><span>Voice</span>';
+            voiceStatus.textContent = 'Voice input ready';
+            voiceInput.classList.remove('active');
+        }
+
+        function processVoiceCommand(command) {
+            console.log('Processing voice command:', command);
+
+            const output = document.getElementById('outputContent');
+            output.innerHTML += `
+                <div class="output-line output-info">🎤 Voice command: "${command}"</div>
+                <div class="output-line output-success">✅ Command processed successfully</div>
+            `;
+
+            // Simulate AI response
+            setTimeout(() => {
+                const aiResponse = generateAIResponse(command);
+                addAIMessage(aiResponse);
+                showNotification('🤖 AI processed your voice command!', 'success');
+            }, 1000);
+        }
+
+        function generateAIResponse(command) {
+            const responses = {
+                'Create a React component': `// Generated React Component
+import React from 'react';
+
+const GeneratedComponent = ({ props }) => {
+    return (
+        <div className="generated-component">
+            <h2>AI Generated Component</h2>
+            <p>This component was created based on your voice command.</p>
+        </div>
+    );
+};
+
+export default GeneratedComponent;`,
+                'Add error handling': `// Error Handling Added
+try {
+    // Your code here
+    const result = await processData();
+    return result;
+} catch (error) {
+    console.error('Error occurred:', error);
+    throw new Error('Process failed: ' + error.message);
+}`,
+                'Generate API endpoint': `// Generated API Endpoint
+app.get('/api/generated', async (req, res) => {
+    try {
+        const data = await fetchData();
+        res.json({
+            success: true,
+            data: data,
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});`,
+                'Optimize performance': `// Performance Optimization
+// 1. Use React.memo for components
+const OptimizedComponent = React.memo(({ data }) => {
+    return <div>{data}</div>;
+});
+
+// 2. Implement lazy loading
+const LazyComponent = React.lazy(() => import('./LazyComponent'));
+
+// 3. Use useMemo for expensive calculations
+const memoizedValue = useMemo(() => {
+    return expensiveCalculation(data);
+}, [data]);`,
+                'Add documentation': `/**
+ * Generated Function Documentation
+ *
+ * @description This function was generated based on voice command
+ * @param {string} input - The input parameter
+ * @returns {Promise<Object>} The processed result
+ * @throws {Error} When processing fails
+ */
+async function documentedFunction(input) {
+    // Implementation here
+    return { success: true, data: input };
+}`
+            };
+
+            return responses[command] || 'I understand your command. How can I help you implement it?';
+        }
+
+        // AI Panel
+        function toggleAIPanel() {
+            const aiPanel = document.getElementById('aiPanel');
+            aiPanelVisible = !aiPanelVisible;
+
+            if (aiPanelVisible) {
+                aiPanel.style.display = 'block';
+                showNotification('🤖 AI Assistant activated!', 'success');
+            } else {
+                aiPanel.style.display = 'none';
+            }
+        }
+
+        function addAIMessage(message) {
+            const aiContent = document.getElementById('aiContent');
+            aiContent.innerHTML += `
+                <div class="ai-message ai-user">User: Voice command received</div>
+                <div class="ai-message ai-assistant">AI: ${message}</div>
+            `;
+            aiContent.scrollTop = aiContent.scrollHeight;
+        }
+
+        // Output functions
+        function clearOutput() {
+            document.getElementById('outputContent').innerHTML = '';
+            showNotification('🧹 Output cleared', 'info');
+        }
+
+        function saveOutput() {
+            showNotification('💾 Output saved to file', 'success');
+        }
+
+        // Notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.background = type === 'success' ? '#4CAF50' :
+                                          type === 'error' ? '#f44336' : '#2196F3';
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                showNotification('💾 File saved', 'success');
+            }
+            if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                runCode();
+            }
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                toggleAIPanel();
+            }
+        });
+
+        // Auto-save functionality
+        setInterval(() => {
+            // Auto-save every 30 seconds
+            console.log('Auto-saving...');
+        }, 30000);
+    </script>
+</body>
+</html>

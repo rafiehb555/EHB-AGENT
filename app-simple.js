@@ -46,6 +46,26 @@ app.get('/homepage', (req, res) => {
     res.sendFile(path.join(__dirname, 'homepage.html'));
 });
 
+// EHB Play System Homepage route
+app.get('/play', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ehb-play-homepage.html'));
+});
+
+// EHB Dev Agent route
+app.get('/ehb-dev-agent', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ehb-dev-agent.html'));
+});
+
+// EHB Robot route
+app.get('/ehb-robot', (req, res) => {
+    res.sendFile(path.join(__dirname, 'ehb-robot.html'));
+});
+
+// Test Cards route
+app.get('/test-cards', (req, res) => {
+    res.sendFile(path.join(__dirname, 'test-cards.html'));
+});
+
 // EHB Robot page
 app.get('/ehb-robot', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages/ehb-robot.html'));

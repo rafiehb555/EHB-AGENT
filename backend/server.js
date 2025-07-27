@@ -61,6 +61,7 @@ app.use('/api/blockchain', require('./routes/blockchain'));
 app.use('/api/franchise', require('./routes/franchise'));
 app.use('/api/complaints', require('./routes/complaints'));
 app.use('/api/scheduler', require('./routes/scheduler'));
+app.use('/api/robot', require('./routes/robot'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -98,8 +99,6 @@ app.listen(PORT, async () => {
     } catch (error) {
         console.error('❌ Failed to start services:', error);
     }
-
-    console.log('✅ EHB AI Robot Backend is ready!');
 });
 
 // Graceful shutdown

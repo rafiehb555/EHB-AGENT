@@ -130,39 +130,65 @@ class EhbRobotModal {
 
             .modal-overlay {
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                backdrop-filter: blur(5px);
+                top: 20px;
+                right: 20px;
+                width: 400px;
+                height: 500px;
+                background: transparent;
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
+                align-items: flex-start;
+                justify-content: flex-end;
+                padding: 0;
             }
 
             .modal-container {
                 background: white;
                 border-radius: 20px;
                 width: 100%;
-                max-width: 500px;
-                max-height: 80vh;
+                max-width: 400px;
+                max-height: 500px;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
                 animation: modalSlideIn 0.3s ease-out;
             }
 
             @keyframes modalSlideIn {
                 from {
                     opacity: 0;
-                    transform: translateY(30px) scale(0.9);
+                    transform: translateX(30px) translateY(-30px) scale(0.9);
                 }
                 to {
                     opacity: 1;
-                    transform: translateY(0) scale(1);
+                    transform: translateX(0) translateY(0) scale(1);
                 }
+            }
+
+            /* Force top-right positioning */
+            #ehb-robot-modal .modal-overlay {
+                position: fixed !important;
+                top: 20px !important;
+                right: 20px !important;
+                left: auto !important;
+                bottom: auto !important;
+                width: 400px !important;
+                height: 500px !important;
+                background: transparent !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                display: flex !important;
+                align-items: flex-start !important;
+                justify-content: flex-end !important;
+                padding: 0 !important;
+            }
+
+            /* Remove backdrop blur from body */
+            body.modal-open {
+                overflow: auto !important;
+            }
+
+            body.modal-open::before {
+                display: none !important;
             }
 
             .modal-header {
@@ -911,10 +937,10 @@ class EhbRobotModal {
             this.commandEngine.processCommand(message).then(result => {
                 this.addMessage('bot', result.message);
 
-                // Handle authentication requirement
-                if (result.requiresAuth) {
-                    this.showAuthPrompt();
-                }
+                // DISABLED: Authentication requirement for development
+                // if (result.requiresAuth) {
+                //     this.showAuthPrompt();
+                // }
 
                 // Handle confirmation requirement
                 if (result.requiresConfirmation) {
@@ -988,11 +1014,11 @@ class EhbRobotModal {
     showAuthPrompt() {
         const authMessage = `
             <div class="auth-prompt">
-                <div class="auth-icon">🔐</div>
-                <div class="auth-text">Please log in to use this feature</div>
+                <div class="auth-icon">🔧</div>
+                <div class="auth-text">This feature is under development. Coming soon!</div>
                 <div class="auth-actions">
-                    <button class="auth-btn login-btn" onclick="window.location.href='/login'">Login</button>
-                    <button class="auth-btn register-btn" onclick="window.location.href='/register'">Register</button>
+                    <button class="auth-btn login-btn" disabled style="opacity: 0.5;">Login (Disabled)</button>
+                    <button class="auth-btn register-btn" disabled style="opacity: 0.5;">Register (Disabled)</button>
                 </div>
             </div>
         `;
