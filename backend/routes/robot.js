@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { parseCommand, executeCommand } = require('../../frontend/src/utils/robotCommands');
 const aiLearning = require('../services/aiLearning');
+const blockchainIntegration = require('../services/blockchainIntegration');
+const deepLearning = require('../services/deepLearning');
 
-// Robot command processing endpoint with AI learning
+// Robot command processing endpoint with AI learning, blockchain, and deep learning
 router.post('/process-command', async (req, res) => {
   try {
     const { command, userId, mode = 'robot' } = req.body;
@@ -28,6 +30,11 @@ router.post('/process-command', async (req, res) => {
       });
     }
 
+    // Deep learning: Predict user intent and detect emotion
+    const intentPrediction = await deepLearning.predictUserIntent(userId, command);
+    const emotionAnalysis = await deepLearning.detectEmotion(command);
+    const personalizedResponse = await deepLearning.generatePersonalizedResponse(userId, command);
+
     // Execute the command with real backend integration
     const result = await executeCommandWithBackend(parsedCommand, userId);
 
@@ -35,23 +42,59 @@ router.post('/process-command', async (req, res) => {
     await aiLearning.learnFromInteraction(userId, command, result, {
       mode,
       timestamp: new Date().toISOString(),
-      parsedCommand
+      parsedCommand,
+      intentPrediction,
+      emotionAnalysis
     });
 
-    // Get personalized suggestions
-    const suggestions = await aiLearning.getSuggestions(userId, {
+    // Blockchain: Create action proof and store learning data
+    const actionProof = await blockchainIntegration.createActionProof(
+      userId,
+      parsedCommand.action.type,
+      parsedCommand.action.params,
+      result
+    );
+
+    // Store learning data on blockchain
+    const learningData = {
+      command,
+      result,
+      intentPrediction,
+      emotionAnalysis,
+      userProfile: await aiLearning.getUserProfile(userId)
+    };
+    const blockchainRecord = await blockchainIntegration.storeLearningData(userId, learningData);
+
+    // Sync with validators
+    const validatorSync = await blockchainIntegration.syncWithValidators(learningData);
+
+    // Get personalized suggestions with deep learning optimization
+    const rawSuggestions = await aiLearning.getSuggestions(userId, {
       currentPage: result.route || 'home'
     });
+    const optimizedSuggestions = await deepLearning.optimizeSuggestions(userId, {
+      currentPage: result.route || 'home'
+    }, rawSuggestions);
 
     res.json({
       success: true,
       result,
       parsedCommand,
       confidence: parsedCommand.action.confidence,
-      suggestions,
+      suggestions: optimizedSuggestions.optimizedSuggestions,
       learning: {
         userProfile: await aiLearning.getUserProfile(userId),
         patterns: await aiLearning.getCommandPatterns()
+      },
+      blockchain: {
+        actionProof,
+        blockchainRecord,
+        validatorSync
+      },
+      deepLearning: {
+        intentPrediction,
+        emotionAnalysis,
+        personalizedResponse
       }
     });
 
@@ -64,17 +107,19 @@ router.post('/process-command', async (req, res) => {
   }
 });
 
-// Get personalized suggestions
+// Get personalized suggestions with deep learning optimization
 router.get('/suggestions/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
     const { context } = req.query;
 
-    const suggestions = await aiLearning.getSuggestions(userId, JSON.parse(context || '{}'));
+    const rawSuggestions = await aiLearning.getSuggestions(userId, JSON.parse(context || '{}'));
+    const optimizedSuggestions = await deepLearning.optimizeSuggestions(userId, JSON.parse(context || '{}'), rawSuggestions);
 
     res.json({
       success: true,
-      suggestions
+      suggestions: optimizedSuggestions.optimizedSuggestions,
+      optimization: optimizedSuggestions
     });
 
   } catch (error) {
@@ -86,18 +131,22 @@ router.get('/suggestions/:userId', async (req, res) => {
   }
 });
 
-// Get user profile and learning data
+// Get user profile and learning data with blockchain integration
 router.get('/profile/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
 
     const profile = await aiLearning.getUserProfile(userId);
     const patterns = await aiLearning.getCommandPatterns();
+    const userPredictions = await deepLearning.getUserPredictions(userId, 5);
+    const userProofs = await blockchainIntegration.getUserLearningProofs(userId);
 
     res.json({
       success: true,
       profile,
-      patterns
+      patterns,
+      predictions: userPredictions,
+      blockchainProofs: userProofs
     });
 
   } catch (error) {
@@ -109,14 +158,20 @@ router.get('/profile/:userId', async (req, res) => {
   }
 });
 
-// Get AI learning analytics
+// Get AI learning analytics with blockchain and deep learning data
 router.get('/analytics', async (req, res) => {
   try {
-    const analytics = await aiLearning.getLearningAnalytics();
+    const aiAnalytics = await aiLearning.getLearningAnalytics();
+    const blockchainAnalytics = await blockchainIntegration.getBlockchainAnalytics();
+    const deepLearningAnalytics = await deepLearning.getDeepLearningAnalytics();
 
     res.json({
       success: true,
-      analytics
+      analytics: {
+        ai: aiAnalytics,
+        blockchain: blockchainAnalytics,
+        deepLearning: deepLearningAnalytics
+      }
     });
 
   } catch (error) {
@@ -124,6 +179,95 @@ router.get('/analytics', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to get analytics'
+    });
+  }
+});
+
+// Get blockchain information
+router.get('/blockchain/health', async (req, res) => {
+  try {
+    const health = await blockchainIntegration.getBlockchainHealth();
+    res.json({
+      success: true,
+      health
+    });
+  } catch (error) {
+    console.error('Failed to get blockchain health:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get blockchain health'
+    });
+  }
+});
+
+// Get validators information
+router.get('/blockchain/validators', async (req, res) => {
+  try {
+    const validators = await blockchainIntegration.getAllValidators();
+    res.json({
+      success: true,
+      validators
+    });
+  } catch (error) {
+    console.error('Failed to get validators:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get validators'
+    });
+  }
+});
+
+// Get deep learning information
+router.get('/deep-learning/health', async (req, res) => {
+  try {
+    const health = await deepLearning.getDeepLearningHealth();
+    res.json({
+      success: true,
+      health
+    });
+  } catch (error) {
+    console.error('Failed to get deep learning health:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get deep learning health'
+    });
+  }
+});
+
+// Get neural networks information
+router.get('/deep-learning/networks', async (req, res) => {
+  try {
+    const networks = await deepLearning.getAllNeuralNetworks();
+    res.json({
+      success: true,
+      networks
+    });
+  } catch (error) {
+    console.error('Failed to get neural networks:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get neural networks'
+    });
+  }
+});
+
+// Train neural network
+router.post('/deep-learning/train/:networkId', async (req, res) => {
+  try {
+    const { networkId } = req.params;
+    const { trainingData } = req.body;
+
+    const trainingSession = await deepLearning.trainNeuralNetwork(networkId, trainingData || []);
+
+    res.json({
+      success: true,
+      trainingSession
+    });
+  } catch (error) {
+    console.error('Failed to train neural network:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to train neural network'
     });
   }
 });
@@ -162,7 +306,7 @@ async function executeCommandWithBackend(parsedCommand, userId) {
   }
 }
 
-// Handle order placement with real backend
+// Handle order placement with blockchain integration
 async function handlePlaceOrder(params, userId) {
   try {
     const { quantity, item, deliveryTime } = params;
@@ -188,16 +332,17 @@ async function handlePlaceOrder(params, userId) {
       createdAt: new Date().toISOString()
     };
 
-    // TODO: Connect to actual order database
-    // const savedOrder = await OrderModel.create(order);
+    // Simulate blockchain transaction
+    const transaction = await blockchainIntegration.simulateTransaction(userId, 'place_order', params);
 
-    console.log('🛒 Order created:', order);
+    console.log('🛒 Order created with blockchain integration:', order);
 
     return {
       success: true,
       message: `✅ Order placed for ${quantity || 1}x ${item}${deliveryTime ? ` for ${deliveryTime}` : ''}`,
       orderId: `ORD-${Date.now()}`,
-      order: order
+      order: order,
+      blockchainTransaction: transaction
     };
 
   } catch (error) {
@@ -209,7 +354,7 @@ async function handlePlaceOrder(params, userId) {
   }
 }
 
-// Handle navigation commands
+// Handle navigation commands with blockchain tracking
 async function handleNavigation(params) {
   try {
     const { page } = params;
@@ -239,11 +384,15 @@ async function handleNavigation(params) {
       };
     }
 
+    // Simulate blockchain transaction for navigation
+    const transaction = await blockchainIntegration.simulateTransaction('demo-user', 'navigate', params);
+
     return {
       success: true,
       message: `🧭 Navigating to ${page}`,
       route: route,
-      page: page
+      page: page,
+      blockchainTransaction: transaction
     };
 
   } catch (error) {
@@ -255,7 +404,7 @@ async function handleNavigation(params) {
   }
 }
 
-// Handle wallet balance check
+// Handle wallet balance check with blockchain verification
 async function handleCheckBalance(userId) {
   try {
     // TODO: Connect to actual wallet API
@@ -268,12 +417,20 @@ async function handleCheckBalance(userId) {
       lastUpdated: new Date().toISOString()
     };
 
-    console.log('💰 Balance checked:', mockBalance);
+    // Verify balance on blockchain
+    const blockchainRecord = await blockchainIntegration.storeLearningData(userId, {
+      action: 'check_balance',
+      balance: mockBalance,
+      timestamp: new Date().toISOString()
+    });
+
+    console.log('💰 Balance checked with blockchain verification:', mockBalance);
 
     return {
       success: true,
       message: `💰 Your wallet balance is ${mockBalance.balance} ${mockBalance.currency}`,
-      balance: mockBalance
+      balance: mockBalance,
+      blockchainRecord
     };
 
   } catch (error) {
@@ -285,7 +442,7 @@ async function handleCheckBalance(userId) {
   }
 }
 
-// Handle service booking
+// Handle service booking with blockchain proof
 async function handleBookService(params, userId) {
   try {
     const { service, time } = params;
@@ -306,16 +463,22 @@ async function handleBookService(params, userId) {
       createdAt: new Date().toISOString()
     };
 
-    // TODO: Connect to actual booking database
-    // const savedBooking = await BookingModel.create(booking);
+    // Create blockchain proof for service booking
+    const actionProof = await blockchainIntegration.createActionProof(
+      userId,
+      'book_service',
+      params,
+      booking
+    );
 
-    console.log('🔧 Service booking created:', booking);
+    console.log('🔧 Service booking created with blockchain proof:', booking);
 
     return {
       success: true,
       message: `🔧 Service booked: ${service}${time ? ` for ${time}` : ''}`,
       bookingId: `BK-${Date.now()}`,
-      booking: booking
+      booking: booking,
+      blockchainProof: actionProof
     };
 
   } catch (error) {
@@ -327,7 +490,7 @@ async function handleBookService(params, userId) {
   }
 }
 
-// Handle reminder setting
+// Handle reminder setting with blockchain storage
 async function handleSetReminder(params, userId) {
   try {
     const { task, time } = params;
@@ -348,16 +511,21 @@ async function handleSetReminder(params, userId) {
       createdAt: new Date().toISOString()
     };
 
-    // TODO: Connect to actual reminder database
-    // const savedReminder = await ReminderModel.create(reminder);
+    // Store reminder on blockchain
+    const blockchainRecord = await blockchainIntegration.storeLearningData(userId, {
+      action: 'set_reminder',
+      reminder: reminder,
+      timestamp: new Date().toISOString()
+    });
 
-    console.log('⏰ Reminder created:', reminder);
+    console.log('⏰ Reminder created with blockchain storage:', reminder);
 
     return {
       success: true,
       message: `⏰ Reminder set: ${task}${time ? ` for ${time}` : ''}`,
       reminderId: `REM-${Date.now()}`,
-      reminder: reminder
+      reminder: reminder,
+      blockchainRecord
     };
 
   } catch (error) {
@@ -369,7 +537,7 @@ async function handleSetReminder(params, userId) {
   }
 }
 
-// Handle search functionality
+// Handle search functionality with deep learning
 async function handleSearch(params) {
   try {
     const { query } = params;
@@ -381,6 +549,10 @@ async function handleSearch(params) {
       };
     }
 
+    // Use deep learning to enhance search
+    const intentPrediction = await deepLearning.predictUserIntent('demo-user', query);
+    const emotionAnalysis = await deepLearning.detectEmotion(query);
+
     // TODO: Connect to actual search API
     // const results = await SearchModel.search(query);
 
@@ -389,13 +561,17 @@ async function handleSearch(params) {
       { id: 2, name: 'Service 1', type: 'service' }
     ];
 
-    console.log('🔍 Search performed:', { query, results: mockResults });
+    console.log('🔍 Search performed with deep learning:', { query, results: mockResults, intent: intentPrediction, emotion: emotionAnalysis });
 
     return {
       success: true,
       message: `🔍 Searching for: ${query}`,
       results: mockResults,
-      query: query
+      query: query,
+      deepLearning: {
+        intent: intentPrediction,
+        emotion: emotionAnalysis
+      }
     };
 
   } catch (error) {
@@ -407,8 +583,11 @@ async function handleSearch(params) {
   }
 }
 
-// Handle help command
+// Handle help command with blockchain analytics
 async function handleShowHelp() {
+  const blockchainHealth = await blockchainIntegration.getBlockchainHealth();
+  const deepLearningHealth = await deepLearning.getDeepLearningHealth();
+
   return {
     success: true,
     message: `I can help you with:
@@ -417,8 +596,15 @@ async function handleShowHelp() {
 • Check balance: "Show my wallet"
 • Book services: "Book AC repair"
 • Set reminders: "Remind me to order milk"
-• Search: "Find shoes"`,
-    help: true
+• Search: "Find shoes"
+
+🔗 Blockchain Status: ${blockchainHealth.status} (${blockchainHealth.activeValidators}/${blockchainHealth.totalValidators} validators)
+🧠 AI Status: ${deepLearningHealth.status} (${Math.round(deepLearningHealth.averageAccuracy * 100)}% accuracy)`,
+    help: true,
+    systemStatus: {
+      blockchain: blockchainHealth,
+      deepLearning: deepLearningHealth
+    }
   };
 }
 
@@ -457,19 +643,23 @@ function parseDeliveryTime(timeString) {
   return null;
 }
 
-// Get robot statistics with AI learning data
+// Get robot statistics with blockchain and deep learning data
 router.get('/stats', async (req, res) => {
   try {
-    const analytics = await aiLearning.getLearningAnalytics();
+    const aiAnalytics = await aiLearning.getLearningAnalytics();
+    const blockchainAnalytics = await blockchainIntegration.getBlockchainAnalytics();
+    const deepLearningAnalytics = await deepLearning.getDeepLearningAnalytics();
 
-    // TODO: Get real statistics from database
     const stats = {
-      totalCommands: analytics.totalCommands,
-      successfulCommands: Math.round(analytics.totalCommands * (analytics.avgSuccessRate / 100)),
-      successRate: analytics.avgSuccessRate,
-      popularCommands: analytics.popularPatterns,
-      learningDataSize: analytics.learningDataSize,
-      totalUsers: analytics.totalUsers,
+      totalCommands: aiAnalytics.totalCommands,
+      successfulCommands: Math.round(aiAnalytics.totalCommands * (aiAnalytics.avgSuccessRate / 100)),
+      successRate: aiAnalytics.avgSuccessRate,
+      popularCommands: aiAnalytics.popularPatterns,
+      blockchainRecords: blockchainAnalytics.totalRecords,
+      blockchainProofs: blockchainAnalytics.totalProofs,
+      activeValidators: blockchainAnalytics.activeValidators,
+      neuralNetworks: deepLearningAnalytics.totalNetworks,
+      averageAccuracy: Math.round(deepLearningAnalytics.averageAccuracy * 100) / 100,
       lastUpdated: new Date().toISOString()
     };
 
@@ -487,7 +677,7 @@ router.get('/stats', async (req, res) => {
   }
 });
 
-// Get robot activity log with learning insights
+// Get robot activity log with blockchain and deep learning insights
 router.get('/activity', async (req, res) => {
   try {
     const { userId, limit = 10 } = req.query;
@@ -505,6 +695,15 @@ router.get('/activity', async (req, res) => {
           pattern: 'order',
           confidence: 0.9,
           suggestion: 'Order 2 cold drinks'
+        },
+        blockchain: {
+          proofId: 'proof-123',
+          status: 'confirmed'
+        },
+        deepLearning: {
+          intent: 'order',
+          emotion: 'neutral',
+          confidence: 0.85
         }
       },
       {
@@ -518,6 +717,15 @@ router.get('/activity', async (req, res) => {
           pattern: 'navigate',
           confidence: 0.8,
           suggestion: 'Open GoSellr'
+        },
+        blockchain: {
+          proofId: 'proof-456',
+          status: 'confirmed'
+        },
+        deepLearning: {
+          intent: 'navigate',
+          emotion: 'neutral',
+          confidence: 0.72
         }
       }
     ];

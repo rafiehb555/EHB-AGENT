@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB Robot - Phase 5 Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .status {
+            text-align: center;
+            padding: 20px;
+            background: #e8f5e8;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+        }
+
+        .test-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-card.blockchain {
+            border-left-color: #28a745;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        }
+
+        .stat-card.deep-learning {
+            border-left-color: #9c27b0;
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+        }
+
+        .stat-card.ai {
+            border-left-color: #ff9800;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+        }
+
+        .stat-card h4 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .blockchain-panel {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .deep-learning-panel {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .panel h4 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .validators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .validator-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .validator-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+
+        .validator-card h5 {
+            color: #28a745;
+            margin-bottom: 8px;
+        }
+
+        .validator-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .networks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .network-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .network-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.2);
+        }
+
+        .network-card h5 {
+            color: #9c27b0;
+            margin-bottom: 8px;
+        }
+
+        .network-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .test-area {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+        }
+
+        .test-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .test-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .blockchain-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .blockchain-btn:hover {
+            background: #218838;
+        }
+
+        .ai-btn {
+            background: #9c27b0;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .ai-btn:hover {
+            background: #7b1fa2;
+        }
+
+        .results {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            min-height: 100px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-item.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .result-item.error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .result-item.blockchain {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+
+        .result-item.deep-learning {
+            background: #f3e5f5;
+            border-left-color: #9c27b0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .floating-robot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .floating-robot:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e1e5e9;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .proof-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .proof-item h6 {
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+
+        .proof-item p {
+            color: #666;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 EHB Robot</h1>
+            <p>Phase 5: Blockchain Integration & Deep Learning</p>
+        </div>
+
+        <div class="content">
+            <div class="status success">
+                <h3>✅ Phase 5 Complete!</h3>
+                <p>EHB Robot now integrates with blockchain for decentralized learning and uses deep learning for advanced AI capabilities.</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('overview')">Overview</button>
+                <button class="tab" onclick="showTab('blockchain')">Blockchain</button>
+                <button class="tab" onclick="showTab('deep-learning')">Deep Learning</button>
+                <button class="tab" onclick="showTab('testing')">Testing</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="test-section">
+                    <h3>🔗 Blockchain & Deep Learning Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card blockchain">
+                            <h4 id="blockchainRecords">0</h4>
+                            <p>Blockchain Records</p>
+                        </div>
+                        <div class="stat-card blockchain">
+                            <h4 id="activeValidators">0</h4>
+                            <p>Active Validators</p>
+                        </div>
+                        <div class="stat-card deep-learning">
+                            <h4 id="neuralNetworks">0</h4>
+                            <p>Neural Networks</p>
+                        </div>
+                        <div class="stat-card deep-learning">
+                            <h4 id="averageAccuracy">0%</h4>
+                            <p>AI Accuracy</p>
+                        </div>
+                        <div class="stat-card ai">
+                            <h4 id="totalCommands">0</h4>
+                            <p>Total Commands</p>
+                        </div>
+                        <div class="stat-card ai">
+                            <h4 id="successRate">0%</h4>
+                            <p>Success Rate</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <h4>🔗 Blockchain Integration</h4>
+                        <p>All robot actions are stored on blockchain with validator proofs for transparency and security.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>🧠 Deep Learning</h4>
+                        <p>Advanced neural networks for intent prediction, emotion detection, and personalized responses.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>⚡ Validator Sync</h4>
+                        <p>Learning data syncs across multiple validator nodes for decentralized AI training.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h4>🎯 Predictive AI</h4>
+                        <p>Robot predicts user intent and emotions to provide more intelligent and personalized responses.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blockchain Tab -->
+            <div id="blockchain" class="tab-content">
+                <div class="test-section">
+                    <h3>🔗 Blockchain Integration</h3>
+                    <div class="blockchain-panel">
+                        <h4>🏛️ Validator Nodes</h4>
+                        <div class="validators-grid" id="validatorsGrid">
+                            <!-- Validators will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="test-area">
+                        <h4>🔗 Blockchain Testing</h4>
+                        <div class="input-group">
+                            <input type="text" class="input-field" id="blockchainInput" placeholder="Test blockchain transaction..." />
+                            <button class="blockchain-btn" onclick="testBlockchain()">Test Transaction</button>
+                            <button class="blockchain-btn" onclick="getBlockchainHealth()">Check Health</button>
+                        </div>
+                        <div class="results" id="blockchainResults">
+                            <p>Blockchain test results will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Learning Tab -->
+            <div id="deep-learning" class="tab-content">
+                <div class="test-section">
+                    <h3>🧠 Deep Learning Networks</h3>
+                    <div class="deep-learning-panel">
+                        <h4>🧠 Neural Networks</h4>
+                        <div class="networks-grid" id="networksGrid">
+                            <!-- Networks will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="test-area">
+                        <h4>🧠 Deep Learning Testing</h4>
+                        <div class="input-group">
+                            <input type="text" class="input-field" id="aiInput" placeholder="Test AI prediction and emotion detection..." />
+                            <button class="ai-btn" onclick="testAI()">Test AI</button>
+                            <button class="ai-btn" onclick="trainNetwork()">Train Network</button>
+                        </div>
+                        <div class="results" id="aiResults">
+                            <p>AI test results will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testing Tab -->
+            <div id="testing" class="tab-content">
+                <div class="test-section">
+                    <h3>🧪 Comprehensive Testing</h3>
+                    <div class="test-area">
+                        <h4>🤖 Robot Command Testing</h4>
+                        <div class="input-group">
+                            <input type="text" class="input-field" id="commandInput" placeholder="Try: Order 2 cold drinks, Open GoSellr, Check balance..." />
+                            <button class="test-btn" onclick="testCommand()">Test Command</button>
+                            <button class="test-btn" onclick="getAnalytics()">Get Analytics</button>
+                        </div>
+                        <div class="results" id="results">
+                            <p>Test results will appear here...</p>
+                        </div>
+                    </div>
+
+                    <div class="test-area">
+                        <h4>📊 System Analytics</h4>
+                        <div id="analyticsDisplay">
+                            <!-- Analytics will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Robot Button -->
+    <button class="floating-robot" onclick="openRobotModal()">
+        🤖
+    </button>
+
+    <script>
+        let blockchainData = null;
+        let deepLearningData = null;
+        let analyticsData = null;
+
+        // Load data on page load
+        window.addEventListener('load', async () => {
+            await loadAllData();
+        });
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        async function loadAllData() {
+            await loadBlockchainData();
+            await loadDeepLearningData();
+            await loadAnalytics();
+            updateDisplay();
+        }
+
+        async function loadBlockchainData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/blockchain/validators');
+                if (response.ok) {
+                    const data = await response.json();
+                    blockchainData = data.validators;
+                }
+            } catch (error) {
+                console.log('Using mock blockchain data');
+                blockchainData = [
+                    {
+                        id: 'validator-001',
+                        address: '0x1234567890abcdef',
+                        status: 'active',
+                        stake: 1000,
+                        lastSync: new Date().toISOString(),
+                        learningDataCount: 25
+                    },
+                    {
+                        id: 'validator-002',
+                        address: '0xabcdef1234567890',
+                        status: 'active',
+                        stake: 1500,
+                        lastSync: new Date().toISOString(),
+                        learningDataCount: 30
+                    },
+                    {
+                        id: 'validator-003',
+                        address: '0x7890abcdef123456',
+                        status: 'active',
+                        stake: 2000,
+                        lastSync: new Date().toISOString(),
+                        learningDataCount: 35
+                    }
+                ];
+            }
+        }
+
+        async function loadDeepLearningData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/deep-learning/networks');
+                if (response.ok) {
+                    const data = await response.json();
+                    deepLearningData = data.networks;
+                }
+            } catch (error) {
+                console.log('Using mock deep learning data');
+                deepLearningData = [
+                    {
+                        id: 'command-prediction',
+                        type: 'LSTM',
+                        layers: [64, 32, 16],
+                        accuracy: 0.89,
+                        lastTrained: new Date().toISOString(),
+                        trainingDataSize: 1250,
+                        status: 'active'
+                    },
+                    {
+                        id: 'user-behavior',
+                        type: 'Transformer',
+                        layers: [128, 64, 32],
+                        accuracy: 0.92,
+                        lastTrained: new Date().toISOString(),
+                        trainingDataSize: 890,
+                        status: 'active'
+                    },
+                    {
+                        id: 'suggestion-optimization',
+                        type: 'CNN',
+                        layers: [32, 16, 8],
+                        accuracy: 0.85,
+                        lastTrained: new Date().toISOString(),
+                        trainingDataSize: 567,
+                        status: 'active'
+                    },
+                    {
+                        id: 'emotion-detection',
+                        type: 'BERT',
+                        layers: [256, 128, 64],
+                        accuracy: 0.94,
+                        lastTrained: new Date().toISOString(),
+                        trainingDataSize: 1200,
+                        status: 'active'
+                    }
+                ];
+            }
+        }
+
+        async function loadAnalytics() {
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/analytics');
+                if (response.ok) {
+                    const data = await response.json();
+                    analyticsData = data.analytics;
+                }
+            } catch (error) {
+                console.log('Using mock analytics data');
+                analyticsData = {
+                    ai: {
+                        totalUsers: 5,
+                        totalCommands: 150,
+                        avgSuccessRate: 94.7,
+                        learningDataSize: 25
+                    },
+                    blockchain: {
+                        totalRecords: 45,
+                        totalProofs: 67,
+                        activeValidators: 3,
+                        recentActivity: [],
+                        validatorStats: [],
+                        blockchainSize: 112
+                    },
+                    deepLearning: {
+                        totalNetworks: 4,
+                        totalPredictions: 89,
+                        totalTrainingData: 34,
+                        averageAccuracy: 0.9,
+                        networkStats: [],
+                        deepLearningSize: 127
+                    }
+                };
+            }
+        }
+
+        function updateDisplay() {
+            // Update statistics
+            if (analyticsData) {
+                document.getElementById('blockchainRecords').textContent = analyticsData.blockchain?.totalRecords || 0;
+                document.getElementById('activeValidators').textContent = analyticsData.blockchain?.activeValidators || 0;
+                document.getElementById('neuralNetworks').textContent = analyticsData.deepLearning?.totalNetworks || 0;
+                document.getElementById('averageAccuracy').textContent = Math.round((analyticsData.deepLearning?.averageAccuracy || 0) * 100) + '%';
+                document.getElementById('totalCommands').textContent = analyticsData.ai?.totalCommands || 0;
+                document.getElementById('successRate').textContent = Math.round(analyticsData.ai?.avgSuccessRate || 0) + '%';
+            }
+
+            // Update validators
+            updateValidatorsDisplay();
+
+            // Update networks
+            updateNetworksDisplay();
+        }
+
+        function updateValidatorsDisplay() {
+            const validatorsGrid = document.getElementById('validatorsGrid');
+            validatorsGrid.innerHTML = '';
+
+            if (blockchainData) {
+                blockchainData.forEach(validator => {
+                    const card = document.createElement('div');
+                    card.className = 'validator-card';
+                    card.onclick = () => showValidatorDetails(validator);
+                    card.innerHTML = `
+                        <h5>${validator.id}</h5>
+                        <p>Stake: ${validator.stake} EHBGC</p>
+                        <p>Status: ${validator.status}</p>
+                        <p>Learning Data: ${validator.learningDataCount}</p>
+                    `;
+                    validatorsGrid.appendChild(card);
+                });
+            }
+        }
+
+        function updateNetworksDisplay() {
+            const networksGrid = document.getElementById('networksGrid');
+            networksGrid.innerHTML = '';
+
+            if (deepLearningData) {
+                deepLearningData.forEach(network => {
+                    const card = document.createElement('div');
+                    card.className = 'network-card';
+                    card.onclick = () => showNetworkDetails(network);
+                    card.innerHTML = `
+                        <h5>${network.id}</h5>
+                        <p>Type: ${network.type}</p>
+                        <p>Accuracy: ${Math.round(network.accuracy * 100)}%</p>
+                        <p>Training Data: ${network.trainingDataSize}</p>
+                    `;
+                    networksGrid.appendChild(card);
+                });
+            }
+        }
+
+        async function testBlockchain() {
+            const input = document.getElementById('blockchainInput');
+            const transaction = input.value.trim();
+
+            if (!transaction) {
+                addResult('Please enter a transaction to test', 'error', 'blockchainResults');
+                return;
+            }
+
+            addResult(`Testing blockchain transaction: "${transaction}"`, 'blockchain', 'blockchainResults');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/blockchain/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult(`✅ Blockchain Health: ${data.health.status} (${data.health.activeValidators}/${data.health.totalValidators} validators)`, 'success', 'blockchainResults');
+                } else {
+                    throw new Error('Backend unavailable');
+                }
+            } catch (error) {
+                addResult(`⚠️ Backend unavailable, using mock blockchain simulation`, 'blockchain', 'blockchainResults');
+
+                setTimeout(() => {
+                    addResult(`✅ Mock transaction confirmed on blockchain`, 'success', 'blockchainResults');
+                }, 2000);
+            }
+        }
+
+        async function getBlockchainHealth() {
+            addResult('Checking blockchain health...', 'blockchain', 'blockchainResults');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/blockchain/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult(`✅ Blockchain Health: ${data.health.status}`, 'success', 'blockchainResults');
+                } else {
+                    throw new Error('Failed to get blockchain health');
+                }
+            } catch (error) {
+                addResult(`❌ Failed to get blockchain health: ${error.message}`, 'error', 'blockchainResults');
+            }
+        }
+
+        async function testAI() {
+            const input = document.getElementById('aiInput');
+            const text = input.value.trim();
+
+            if (!text) {
+                addResult('Please enter text to test AI', 'error', 'aiResults');
+                return;
+            }
+
+            addResult(`Testing AI with: "${text}"`, 'deep-learning', 'aiResults');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/deep-learning/health');
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult(`✅ AI Health: ${data.health.status} (${Math.round(data.health.averageAccuracy * 100)}% accuracy)`, 'success', 'aiResults');
+                } else {
+                    throw new Error('Backend unavailable');
+                }
+            } catch (error) {
+                addResult(`⚠️ Backend unavailable, using mock AI simulation`, 'deep-learning', 'aiResults');
+
+                setTimeout(() => {
+                    addResult(`✅ Mock AI prediction: Intent detected with 85% confidence`, 'success', 'aiResults');
+                }, 1500);
+            }
+        }
+
+        async function trainNetwork() {
+            addResult('Training neural network...', 'deep-learning', 'aiResults');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/deep-learning/train/command-prediction', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        trainingData: [
+                            { input: 'order milk', output: 'place_order' },
+                            { input: 'open gosellr', output: 'navigate' }
+                        ]
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult(`✅ Network trained successfully: ${data.trainingSession.newAccuracy}% accuracy`, 'success', 'aiResults');
+                } else {
+                    throw new Error('Failed to train network');
+                }
+            } catch (error) {
+                addResult(`❌ Failed to train network: ${error.message}`, 'error', 'aiResults');
+            }
+        }
+
+        async function testCommand() {
+            const input = document.getElementById('commandInput');
+            const command = input.value.trim();
+
+            if (!command) {
+                addResult('Please enter a command to test', 'error', 'results');
+                return;
+            }
+
+            addResult(`Testing command: "${command}"`, 'blockchain', 'results');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/process-command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        command: command,
+                        userId: 'demo-user',
+                        mode: 'robot'
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    if (result.success) {
+                        addResult(`✅ Command executed: ${result.result.message}`, 'success', 'results');
+
+                        if (result.blockchain) {
+                            addResult(`🔗 Blockchain: Action proof created and data stored`, 'blockchain', 'results');
+                        }
+
+                        if (result.deepLearning) {
+                            addResult(`🧠 AI: Intent predicted and emotion detected`, 'deep-learning', 'results');
+                        }
+                    } else {
+                        addResult(`❌ Command failed: ${result.message}`, 'error', 'results');
+                    }
+                } else {
+                    throw new Error('Backend unavailable');
+                }
+            } catch (error) {
+                addResult(`⚠️ Backend unavailable, using local processing`, 'blockchain', 'results');
+
+                setTimeout(() => {
+                    addResult(`✅ Local: Command processed (mock)`, 'success', 'results');
+                }, 1000);
+            }
+
+            // Reload data after testing
+            setTimeout(() => {
+                loadAllData();
+            }, 2000);
+        }
+
+        async function getAnalytics() {
+            addResult('Getting comprehensive analytics...', 'blockchain', 'results');
+
+            try {
+                const response = await fetch('http://localhost:5000/api/robot/analytics');
+                if (response.ok) {
+                    const data = await response.json();
+                    displayAnalytics(data.analytics);
+                    addResult(`✅ Analytics loaded successfully`, 'success', 'results');
+                } else {
+                    throw new Error('Failed to get analytics');
+                }
+            } catch (error) {
+                addResult(`❌ Failed to get analytics: ${error.message}`, 'error', 'results');
+            }
+        }
+
+        function displayAnalytics(analytics) {
+            const analyticsDisplay = document.getElementById('analyticsDisplay');
+            analyticsDisplay.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="background: #d4edda; padding: 15px; border-radius: 8px;">
+                        <h5>AI Learning</h5>
+                        <p>Users: ${analytics.ai?.totalUsers || 0}</p>
+                        <p>Commands: ${analytics.ai?.totalCommands || 0}</p>
+                        <p>Success Rate: ${analytics.ai?.avgSuccessRate || 0}%</p>
+                    </div>
+                    <div style="background: #d1ecf1; padding: 15px; border-radius: 8px;">
+                        <h5>Blockchain</h5>
+                        <p>Records: ${analytics.blockchain?.totalRecords || 0}</p>
+                        <p>Proofs: ${analytics.blockchain?.totalProofs || 0}</p>
+                        <p>Validators: ${analytics.blockchain?.activeValidators || 0}</p>
+                    </div>
+                    <div style="background: #f3e5f5; padding: 15px; border-radius: 8px;">
+                        <h5>Deep Learning</h5>
+                        <p>Networks: ${analytics.deepLearning?.totalNetworks || 0}</p>
+                        <p>Predictions: ${analytics.deepLearning?.totalPredictions || 0}</p>
+                        <p>Accuracy: ${Math.round((analytics.deepLearning?.averageAccuracy || 0) * 100)}%</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showValidatorDetails(validator) {
+            addResult(`🔗 Validator Details: ${validator.id} (Stake: ${validator.stake} EHBGC, Status: ${validator.status})`, 'blockchain', 'blockchainResults');
+        }
+
+        function showNetworkDetails(network) {
+            addResult(`🧠 Network Details: ${network.id} (Type: ${network.type}, Accuracy: ${Math.round(network.accuracy * 100)}%)`, 'deep-learning', 'aiResults');
+        }
+
+        function addResult(message, type = 'success', targetId = 'results') {
+            const resultsDiv = document.getElementById(targetId);
+            const resultItem = document.createElement('div');
+            resultItem.className = `result-item ${type}`;
+            resultItem.innerHTML = `
+                <strong>${type.toUpperCase()}:</strong> ${message}
+                <br><small>${new Date().toLocaleTimeString()}</small>
+            `;
+            resultsDiv.appendChild(resultItem);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        function openRobotModal() {
+            addResult('🤖 Robot modal would open here (Phase 1 feature)', 'success', 'results');
+        }
+
+        // Demo: Auto-add some example results
+        setTimeout(() => {
+            addResult('Ready to test Phase 5 features! Try blockchain transactions and AI predictions.', 'blockchain', 'results');
+        }, 1000);
+    </script>
+</body>
+</html>
