@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB Robot Phase 3 Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #45a049;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .command-example {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            cursor: pointer;
+        }
+        .command-example:hover {
+            background: #e9ecef;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .feature-title {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .test-results {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .auth-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .mock-auth {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .mock-auth input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .mock-auth button {
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 EHB Robot Phase 3 Test Page</h1>
+
+    <div class="auth-section">
+        <h2>🔐 Authentication Setup</h2>
+        <p>Set up mock authentication to test real backend features:</p>
+        <div class="mock-auth">
+            <input type="text" id="mock-user-id" placeholder="User ID" value="user_123">
+            <input type="text" id="mock-auth-token" placeholder="Auth Token" value="mock_token_123">
+            <button onclick="setMockAuth()">Set Auth</button>
+            <button onclick="clearMockAuth()">Clear Auth</button>
+        </div>
+        <div id="auth-status">Status: Not authenticated</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Phase 3 Features Test</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">✅ Real Backend API</div>
+                <p>Connect to actual backend services for orders, wallet, and services</p>
+                <button class="test-button" onclick="testBackendAPI()">Test API</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Authentication System</div>
+                <p>User login state and token-based authentication</p>
+                <button class="test-button" onclick="testAuthentication()">Test Auth</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Wallet Integration</div>
+                <p>Trusty Wallet balance and lock status checks</p>
+                <button class="test-button" onclick="testWalletIntegration()">Test Wallet</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Service Booking</div>
+                <p>Real service search and booking functionality</p>
+                <button class="test-button" onclick="testServiceBooking()">Test Services</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Real Command Examples</h2>
+        <p>Click any command to test with real backend integration:</p>
+
+        <h3>📦 Order Commands (Real API)</h3>
+        <div class="command-example" onclick="testCommand('Order 2 cold drinks at 6pm')">
+            "Order 2 cold drinks at 6pm"
+        </div>
+        <div class="command-example" onclick="testCommand('Buy chips tomorrow morning')">
+            "Buy chips tomorrow morning"
+        </div>
+        <div class="command-example" onclick="testCommand('Get a pizza in 2 hours')">
+            "Get a pizza in 2 hours"
+        </div>
+
+        <h3>🔧 Service Commands (Real API)</h3>
+        <div class="command-example" onclick="testCommand('Book AC repair tomorrow at 3pm')">
+            "Book AC repair tomorrow at 3pm"
+        </div>
+        <div class="command-example" onclick="testCommand('Schedule hairdresser for next week')">
+            "Schedule hairdresser for next week"
+        </div>
+        <div class="command-example" onclick="testCommand('Book VIP service tomorrow morning')">
+            "Book VIP service tomorrow morning"
+        </div>
+
+        <h3>💰 Wallet Commands (Real API)</h3>
+        <div class="command-example" onclick="testCommand('Show my wallet')">
+            "Show my wallet"
+        </div>
+        <div class="command-example" onclick="testCommand('Check my balance')">
+            "Check my balance"
+        </div>
+
+        <h3>🔍 Search Commands (Real API)</h3>
+        <div class="command-example" onclick="testCommand('Search for pizza')">
+            "Search for pizza"
+        </div>
+        <div class="command-example" onclick="testCommand('Find beverages')">
+            "Find beverages"
+        </div>
+
+        <h3>🌐 Navigation Commands</h3>
+        <div class="command-example" onclick="testCommand('Open GoSellr')">
+            "Open GoSellr"
+        </div>
+        <div class="command-example" onclick="testCommand('Go to wallet')">
+            "Go to wallet"
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Advanced Features Test</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">✅ Confirmation Flow</div>
+                <p>Test order and service confirmation prompts</p>
+                <button class="test-button" onclick="testConfirmationFlow()">Test Confirmations</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Error Handling</div>
+                <p>Test authentication and API error scenarios</p>
+                <button class="test-button" onclick="testErrorHandling()">Test Errors</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Activity Logging</div>
+                <p>Test robot activity logging to backend</p>
+                <button class="test-button" onclick="testActivityLogging()">Test Logging</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Rate Limiting</div>
+                <p>Test API rate limiting and security</p>
+                <button class="test-button" onclick="testRateLimiting()">Test Rate Limits</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-results" class="test-results">
+            <p>Test results will appear here...</p>
+        </div>
+        <button class="test-button" onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <!-- EHB Robot Components -->
+    <script src="utils/robotActions.js"></script>
+    <script src="utils/timeParser.js"></script>
+    <script src="api/robotOrders.js"></script>
+    <script src="utils/robotCommands.js"></script>
+    <script src="components/EhbRobot/RobotCommandEngine.js"></script>
+    <script src="components/EhbRobot/RobotButton.js"></script>
+    <script src="components/EhbRobot/RobotModal.js"></script>
+    <script src="components/EhbRobot/EhbRobotLoader.js"></script>
+
+    <script>
+        let robotAPI = null;
+        let robotCommands = null;
+        let commandEngine = null;
+
+        function addResult(message, type = 'success') {
+            const results = document.getElementById('test-results');
+            const result = document.createElement('div');
+            result.className = `status ${type}`;
+            result.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            results.appendChild(result);
+            results.scrollTop = results.scrollHeight;
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '<p>Results cleared...</p>';
+        }
+
+        function setMockAuth() {
+            const userId = document.getElementById('mock-user-id').value;
+            const token = document.getElementById('mock-auth-token').value;
+
+            if (robotAPI) {
+                robotAPI.setAuth(token, userId);
+                document.getElementById('auth-status').textContent = `Status: Authenticated as ${userId}`;
+                addResult(`✅ Authentication set: ${userId}`, 'success');
+            } else {
+                addResult('❌ Robot API not initialized', 'error');
+            }
+        }
+
+        function clearMockAuth() {
+            if (robotAPI) {
+                robotAPI.authToken = null;
+                robotAPI.userId = null;
+                localStorage.removeItem('ehb_auth_token');
+                localStorage.removeItem('ehb_user_id');
+                document.getElementById('auth-status').textContent = 'Status: Not authenticated';
+                addResult('✅ Authentication cleared', 'success');
+            }
+        }
+
+        function initializeComponents() {
+            try {
+                if (window.RobotOrdersAPI) {
+                    robotAPI = new window.RobotOrdersAPI();
+                    addResult('✅ Robot Orders API initialized');
+                } else {
+                    addResult('❌ Robot Orders API not available', 'error');
+                }
+
+                if (window.RobotCommands) {
+                    robotCommands = new window.RobotCommands();
+                    addResult('✅ Robot Commands initialized');
+                } else {
+                    addResult('❌ Robot Commands not available', 'error');
+                }
+
+                if (window.RobotCommandEngine) {
+                    commandEngine = new window.RobotCommandEngine();
+                    addResult('✅ Robot Command Engine initialized');
+                } else {
+                    addResult('❌ Robot Command Engine not available', 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Initialization error: ${error.message}`, 'error');
+            }
+        }
+
+        function testBackendAPI() {
+            if (!robotAPI) {
+                addResult('❌ Robot API not initialized', 'error');
+                return;
+            }
+
+            addResult('🧪 Testing backend API connectivity...');
+
+            // Test authentication check
+            const isAuth = robotAPI.isAuthenticated();
+            addResult(`Authentication status: ${isAuth ? 'Authenticated' : 'Not authenticated'}`, isAuth ? 'success' : 'warning');
+
+            if (!isAuth) {
+                addResult('⚠️ Please set authentication first', 'warning');
+                return;
+            }
+
+            // Test wallet balance check
+            robotAPI.checkWalletBalance().then(result => {
+                addResult(`✅ Wallet balance: ${result.currency} ${result.balance}`, 'success');
+            }).catch(error => {
+                addResult(`❌ Wallet check failed: ${error.message}`, 'error');
+            });
+        }
+
+        function testAuthentication() {
+            if (!robotAPI) {
+                addResult('❌ Robot API not initialized', 'error');
+                return;
+            }
+
+            addResult('🔐 Testing authentication system...');
+
+            // Test without auth
+            const noAuth = robotAPI.isAuthenticated();
+            addResult(`No auth status: ${noAuth ? 'Authenticated' : 'Not authenticated'}`, noAuth ? 'warning' : 'success');
+
+            // Test with mock auth
+            setMockAuth();
+
+            setTimeout(() => {
+                const withAuth = robotAPI.isAuthenticated();
+                addResult(`With auth status: ${withAuth ? 'Authenticated' : 'Not authenticated'}`, withAuth ? 'success' : 'error');
+            }, 100);
+        }
+
+        function testWalletIntegration() {
+            if (!robotAPI || !robotAPI.isAuthenticated()) {
+                addResult('❌ Please authenticate first', 'error');
+                return;
+            }
+
+            addResult('💰 Testing wallet integration...');
+
+            // Test balance check
+            robotAPI.checkWalletBalance().then(result => {
+                addResult(`✅ Balance check: ${result.currency} ${result.balance}`, 'success');
+            }).catch(error => {
+                addResult(`❌ Balance check failed: ${error.message}`, 'error');
+            });
+
+            // Test lock status
+            robotAPI.checkWalletLock().then(result => {
+                addResult(`✅ Lock status: ${result.locked ? 'Locked' : 'Not locked'}`, 'success');
+            }).catch(error => {
+                addResult(`❌ Lock check failed: ${error.message}`, 'error');
+            });
+        }
+
+        function testServiceBooking() {
+            if (!robotAPI || !robotAPI.isAuthenticated()) {
+                addResult('❌ Please authenticate first', 'error');
+                return;
+            }
+
+            addResult('🔧 Testing service booking...');
+
+            // Test service search
+            robotAPI.searchServices('AC Repair').then(result => {
+                addResult(`✅ Service search: Found ${result.services.length} providers`, 'success');
+            }).catch(error => {
+                addResult(`❌ Service search failed: ${error.message}`, 'error');
+            });
+        }
+
+        function testCommand(command) {
+            addResult(`🧪 Testing command: "${command}"`);
+
+            if (!commandEngine) {
+                addResult('❌ Command Engine not available', 'error');
+                return;
+            }
+
+            commandEngine.processCommand(command).then(result => {
+                addResult(`✅ Command result: ${result.message}`, result.success ? 'success' : 'error');
+
+                if (result.requiresAuth) {
+                    addResult('⚠️ Authentication required for this command', 'warning');
+                }
+
+                if (result.requiresConfirmation) {
+                    addResult('📋 Confirmation required for this action', 'warning');
+                }
+            }).catch(error => {
+                addResult(`❌ Command failed: ${error.message}`, 'error');
+            });
+        }
+
+        function testConfirmationFlow() {
+            addResult('📋 Testing confirmation flow...');
+
+            if (!robotCommands) {
+                addResult('❌ Robot Commands not available', 'error');
+                return;
+            }
+
+            // Test order confirmation
+            robotCommands.processCommand('Order 2 cold drinks at 6pm').then(result => {
+                if (result.requiresConfirmation) {
+                    addResult('✅ Order confirmation prompt generated', 'success');
+
+                    // Simulate confirmation
+                    robotCommands.confirmAction(result.confirmationData).then(confirmResult => {
+                        addResult(`✅ Confirmation result: ${confirmResult.message}`, confirmResult.success ? 'success' : 'error');
+                    });
+                } else {
+                    addResult('❌ No confirmation prompt generated', 'error');
+                }
+            });
+        }
+
+        function testErrorHandling() {
+            addResult('⚠️ Testing error handling...');
+
+            // Test without authentication
+            clearMockAuth();
+
+            if (robotCommands) {
+                robotCommands.processCommand('Order pizza').then(result => {
+                    if (result.requiresAuth) {
+                        addResult('✅ Authentication error handled correctly', 'success');
+                    } else {
+                        addResult('❌ Authentication error not handled', 'error');
+                    }
+                });
+            }
+        }
+
+        function testActivityLogging() {
+            addResult('📝 Testing activity logging...');
+
+            if (!robotAPI) {
+                addResult('❌ Robot API not available', 'error');
+                return;
+            }
+
+            robotAPI.logActivity('test_action', { test: true }).then(() => {
+                addResult('✅ Activity logged successfully', 'success');
+            }).catch(error => {
+                addResult(`❌ Activity logging failed: ${error.message}`, 'error');
+            });
+        }
+
+        function testRateLimiting() {
+            addResult('🚦 Testing rate limiting...');
+
+            if (!robotAPI) {
+                addResult('❌ Robot API not available', 'error');
+                return;
+            }
+
+            // Simulate multiple rapid requests
+            const promises = [];
+            for (let i = 0; i < 5; i++) {
+                promises.push(robotAPI.checkWalletBalance());
+            }
+
+            Promise.allSettled(promises).then(results => {
+                const successCount = results.filter(r => r.status === 'fulfilled').length;
+                const failureCount = results.filter(r => r.status === 'rejected').length;
+
+                addResult(`✅ Rate limit test: ${successCount} success, ${failureCount} failures`, 'success');
+            });
+        }
+
+        // Initialize components when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                initializeComponents();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

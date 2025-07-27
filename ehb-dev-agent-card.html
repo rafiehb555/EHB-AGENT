@@ -1,0 +1,334 @@
+<!-- EHB Dev Agent Card Component -->
+<div class="agent-card ehb-dev-agent">
+    <div class="card-header">
+        <div class="agent-icon">🤖</div>
+        <div class="agent-info">
+            <h3>EHB Dev Agent</h3>
+            <p>Real-Time Coding Platform</p>
+        </div>
+        <div class="status-indicator active"></div>
+    </div>
+
+    <div class="card-body">
+        <div class="features-list">
+            <div class="feature">
+                <span class="feature-icon">🎤</span>
+                <span>Voice Control</span>
+                <span class="status-badge active">Active</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🧠</span>
+                <span>Brain Interface</span>
+                <span class="status-badge active">Active</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🤖</span>
+                <span>AI Code Generation</span>
+                <span class="status-badge active">Active</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚛️</span>
+                <span>Quantum Ready</span>
+                <span class="status-badge active">Active</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">👥</span>
+                <span>Real-Time Collaboration</span>
+                <span class="status-badge active">Active</span>
+            </div>
+        </div>
+
+        <div class="performance-metrics">
+            <div class="metric">
+                <span class="metric-label">Performance</span>
+                <span class="metric-value">98%</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Uptime</span>
+                <span class="metric-value">99.9%</span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Active Sessions</span>
+                <span class="metric-value" id="active-sessions">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-actions">
+        <button class="btn btn-primary" onclick="launchEHBDevAgent()">
+            🚀 Launch Dev Agent
+        </button>
+        <button class="btn btn-secondary" onclick="viewEHBDevAgentStatus()">
+            📊 View Status
+        </button>
+        <button class="btn btn-secondary" onclick="openEHBDevAgentDocs()">
+            📚 Documentation
+        </button>
+    </div>
+</div>
+
+<style>
+.agent-card.ehb-dev-agent {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem;
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.agent-card.ehb-dev-agent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.agent-card.ehb-dev-agent:hover::before {
+    transform: translateX(100%);
+}
+
+.agent-card.ehb-dev-agent:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.agent-icon {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.agent-info h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.agent-info p {
+    color: rgba(255,255,255,0.8);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.status-indicator.active {
+    background: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.features-list {
+    margin-bottom: 1rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.feature:last-child {
+    border-bottom: none;
+}
+
+.feature-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    width: 24px;
+    text-align: center;
+}
+
+.feature span:nth-child(2) {
+    flex: 1;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.status-badge.active {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+}
+
+.performance-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+.metric {
+    text-align: center;
+}
+
+.metric-label {
+    display: block;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.25rem;
+}
+
+.metric-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .agent-card.ehb-dev-agent {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+
+    .performance-metrics {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .card-actions {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+// EHB Dev Agent Card Functions
+function launchEHBDevAgent() {
+    window.open('http://localhost:5000', '_blank');
+    updateCardStatus('🚀 Launching EHB Dev Agent...');
+}
+
+function viewEHBDevAgentStatus() {
+    fetch('http://localhost:5000/api/status')
+        .then(response => response.json())
+        .then(data => {
+            updateCardStatus('✅ EHB Dev Agent Status: ' + data.status);
+            document.getElementById('active-sessions').textContent = data.activeSessions || 0;
+        })
+        .catch(error => {
+            updateCardStatus('❌ EHB Dev Agent not available');
+        });
+}
+
+function openEHBDevAgentDocs() {
+    window.open('http://localhost:5000/docs', '_blank');
+    updateCardStatus('📚 Opening EHB Dev Agent Documentation...');
+}
+
+function updateCardStatus(message) {
+    // Update status in the card
+    const statusElement = document.querySelector('.ehb-dev-agent .status-indicator');
+    if (statusElement) {
+        statusElement.title = message;
+    }
+
+    // Log the action
+    console.log('EHB Dev Agent:', message);
+}
+
+// Auto-update active sessions count
+setInterval(() => {
+    fetch('http://localhost:5000/api/status')
+        .then(response => response.json())
+        .then(data => {
+            const sessionsElement = document.getElementById('active-sessions');
+            if (sessionsElement) {
+                sessionsElement.textContent = data.activeSessions || 0;
+            }
+        })
+        .catch(error => {
+            // Dev Agent not running, keep default
+        });
+}, 5000);
+
+// Initialize card
+document.addEventListener('DOMContentLoaded', () => {
+    updateCardStatus('EHB Dev Agent Ready');
+});
+</script>

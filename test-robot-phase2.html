@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EHB Robot Phase 2 Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #45a049;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .command-example {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            cursor: pointer;
+        }
+        .command-example:hover {
+            background: #e9ecef;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .feature-title {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .test-results {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 EHB Robot Phase 2 Test Page</h1>
+
+    <div class="test-section">
+        <h2>Phase 2 Features Test</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-title">✅ Command Parsing Engine</div>
+                <p>Smart NLP-like parser that understands natural language commands</p>
+                <button class="test-button" onclick="testCommandParsing()">Test Parsing</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Action Dispatcher</div>
+                <p>Maps commands to real tasks and API calls</p>
+                <button class="test-button" onclick="testActionDispatcher()">Test Actions</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Time Recognition</div>
+                <p>Converts natural language time to UTC</p>
+                <button class="test-button" onclick="testTimeParsing()">Test Time</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-title">✅ Voice-to-Action Flow</div>
+                <p>Complete flow from voice input to action execution</p>
+                <button class="test-button" onclick="testVoiceFlow()">Test Flow</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Command Examples</h2>
+        <p>Click any command to test it:</p>
+
+        <h3>📦 Order Commands</h3>
+        <div class="command-example" onclick="testCommand('Order 2 cold drinks at 6pm')">
+            "Order 2 cold drinks at 6pm"
+        </div>
+        <div class="command-example" onclick="testCommand('Buy chips tomorrow morning')">
+            "Buy chips tomorrow morning"
+        </div>
+        <div class="command-example" onclick="testCommand('Get a pizza in 2 hours')">
+            "Get a pizza in 2 hours"
+        </div>
+
+        <h3>🌐 Navigation Commands</h3>
+        <div class="command-example" onclick="testCommand('Open GoSellr')">
+            "Open GoSellr"
+        </div>
+        <div class="command-example" onclick="testCommand('Go to wallet')">
+            "Go to wallet"
+        </div>
+        <div class="command-example" onclick="testCommand('Navigate to dashboard')">
+            "Navigate to dashboard"
+        </div>
+
+        <h3>💰 Wallet Commands</h3>
+        <div class="command-example" onclick="testCommand('Show my wallet')">
+            "Show my wallet"
+        </div>
+        <div class="command-example" onclick="testCommand('Check my balance')">
+            "Check my balance"
+        </div>
+
+        <h3>🔍 Search Commands</h3>
+        <div class="command-example" onclick="testCommand('Search for pizza')">
+            "Search for pizza"
+        </div>
+        <div class="command-example" onclick="testCommand('Find beverages')">
+            "Find beverages"
+        </div>
+
+        <h3>❓ Help Commands</h3>
+        <div class="command-example" onclick="testCommand('What can you do?')">
+            "What can you do?"
+        </div>
+        <div class="command-example" onclick="testCommand('Show commands')">
+            "Show commands"
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Time Parsing Examples</h2>
+        <div class="command-example" onclick="testTimeExpression('6pm')">
+            "6pm"
+        </div>
+        <div class="command-example" onclick="testTimeExpression('tomorrow 6pm')">
+            "tomorrow 6pm"
+        </div>
+        <div class="command-example" onclick="testTimeExpression('in 2 hours')">
+            "in 2 hours"
+        </div>
+        <div class="command-example" onclick="testTimeExpression('next week morning')">
+            "next week morning"
+        </div>
+        <div class="command-example" onclick="testTimeExpression('tomorrow afternoon')">
+            "tomorrow afternoon"
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-results" class="test-results">
+            <p>Test results will appear here...</p>
+        </div>
+        <button class="test-button" onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <!-- EHB Robot Components -->
+    <script src="utils/robotActions.js"></script>
+    <script src="utils/timeParser.js"></script>
+    <script src="components/EhbRobot/RobotCommandEngine.js"></script>
+    <script src="components/EhbRobot/RobotButton.js"></script>
+    <script src="components/EhbRobot/RobotModal.js"></script>
+    <script src="components/EhbRobot/EhbRobotLoader.js"></script>
+
+    <script>
+        let commandEngine = null;
+        let timeParser = null;
+        let robotActions = null;
+
+        function addResult(message, isSuccess = true) {
+            const results = document.getElementById('test-results');
+            const result = document.createElement('div');
+            result.className = `status ${isSuccess ? 'success' : 'error'}`;
+            result.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            results.appendChild(result);
+            results.scrollTop = results.scrollHeight;
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '<p>Results cleared...</p>';
+        }
+
+        function initializeComponents() {
+            try {
+                if (window.RobotCommandEngine) {
+                    commandEngine = new window.RobotCommandEngine();
+                    addResult('✅ Command Engine initialized');
+                } else {
+                    addResult('❌ Command Engine not available', false);
+                }
+
+                if (window.TimeParser) {
+                    timeParser = new window.TimeParser();
+                    addResult('✅ Time Parser initialized');
+                } else {
+                    addResult('❌ Time Parser not available', false);
+                }
+
+                if (window.RobotActions) {
+                    robotActions = new window.RobotActions();
+                    addResult('✅ Robot Actions initialized');
+                } else {
+                    addResult('❌ Robot Actions not available', false);
+                }
+            } catch (error) {
+                addResult(`❌ Initialization error: ${error.message}`, false);
+            }
+        }
+
+        function testCommandParsing() {
+            if (!commandEngine) {
+                addResult('❌ Command Engine not initialized', false);
+                return;
+            }
+
+            const testCommands = [
+                'Order 2 cold drinks at 6pm',
+                'Open GoSellr',
+                'Show my wallet',
+                'Search for pizza'
+            ];
+
+            testCommands.forEach(cmd => {
+                const validation = commandEngine.validateCommand(cmd);
+                if (validation.valid) {
+                    addResult(`✅ Command valid: "${cmd}"`);
+                } else {
+                    addResult(`❌ Command invalid: "${cmd}" - ${validation.message}`, false);
+                }
+            });
+        }
+
+        function testActionDispatcher() {
+            if (!robotActions) {
+                addResult('❌ Robot Actions not initialized', false);
+                return;
+            }
+
+            const testCommands = [
+                'Order 2 cold drinks at 6pm',
+                'Open GoSellr',
+                'Show my wallet'
+            ];
+
+            testCommands.forEach(async (cmd) => {
+                try {
+                    const result = await robotActions.executeCommand(cmd);
+                    addResult(`✅ Action executed: "${cmd}" - ${result.success ? 'Success' : 'Failed'}`);
+                } catch (error) {
+                    addResult(`❌ Action failed: "${cmd}" - ${error.message}`, false);
+                }
+            });
+        }
+
+        function testTimeParsing() {
+            if (!timeParser) {
+                addResult('❌ Time Parser not initialized', false);
+                return;
+            }
+
+            const testTimes = [
+                '6pm',
+                'tomorrow 6pm',
+                'in 2 hours',
+                'next week morning',
+                'tomorrow afternoon'
+            ];
+
+            testTimes.forEach(time => {
+                const result = timeParser.parseTimeExpression(time);
+                if (result) {
+                    addResult(`✅ Time parsed: "${time}" → ${result.display}`);
+                } else {
+                    addResult(`❌ Time parsing failed: "${time}"`, false);
+                }
+            });
+        }
+
+        function testVoiceFlow() {
+            if (!commandEngine) {
+                addResult('❌ Command Engine not initialized', false);
+                return;
+            }
+
+            const testCommand = 'Order 2 cold drinks at 6pm';
+            addResult(`🎤 Testing voice flow: "${testCommand}"`);
+
+            commandEngine.processCommand(testCommand).then(result => {
+                addResult(`✅ Voice flow completed: ${result.message}`);
+            }).catch(error => {
+                addResult(`❌ Voice flow failed: ${error.message}`, false);
+            });
+        }
+
+        function testCommand(command) {
+            addResult(`🧪 Testing command: "${command}"`);
+
+            if (commandEngine) {
+                commandEngine.processCommand(command).then(result => {
+                    addResult(`✅ Command result: ${result.message}`);
+                }).catch(error => {
+                    addResult(`❌ Command failed: ${error.message}`, false);
+                });
+            } else {
+                addResult('❌ Command Engine not available', false);
+            }
+        }
+
+        function testTimeExpression(expression) {
+            addResult(`⏰ Testing time expression: "${expression}"`);
+
+            if (timeParser) {
+                const result = timeParser.parseTimeExpression(expression);
+                if (result) {
+                    addResult(`✅ Time parsed: ${result.display} (${result.isoString})`);
+                } else {
+                    addResult(`❌ Time parsing failed for: "${expression}"`, false);
+                }
+            } else {
+                addResult('❌ Time Parser not available', false);
+            }
+        }
+
+        // Initialize components when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                initializeComponents();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

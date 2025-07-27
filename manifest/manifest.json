@@ -1,0 +1,341 @@
+{
+  "name": "EHB Robot - AI Assistant",
+  "short_name": "EHB Robot",
+  "description": "Your intelligent AI assistant for daily tasks, appointments, and automation",
+  "version": "1.0.0",
+  "start_url": "/ehb-robot",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1e40af",
+  "background_color": "#0f172a",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Voice Commands",
+      "short_name": "Voice",
+      "description": "Start voice recognition for hands-free operation",
+      "url": "/ehb-robot?mode=voice",
+      "icons": [
+        {
+          "src": "/icons/voice-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Quick Tasks",
+      "short_name": "Tasks",
+      "description": "Access frequently used tasks and shortcuts",
+      "url": "/ehb-robot?mode=tasks",
+      "icons": [
+        {
+          "src": "/icons/tasks-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "short_name": "Book",
+      "description": "Book appointments and schedule services",
+      "url": "/ehb-robot?mode=appointments",
+      "icons": [
+        {
+          "src": "/icons/calendar-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Shopping",
+      "short_name": "Shop",
+      "description": "Order groceries and manage deliveries",
+      "url": "/ehb-robot?mode=shopping",
+      "icons": [
+        {
+          "src": "/icons/shopping-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "EHB Robot main interface with voice commands"
+    },
+    {
+      "src": "/screenshots/mobile-2.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Task management and appointment booking"
+    },
+    {
+      "src": "/screenshots/desktop-1.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "EHB Robot desktop interface with multi-agent system"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://ehb-robot.com/manifest.json"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "capture_links": "existing-client-navigate",
+  "file_handlers": [
+    {
+      "action": "/ehb-robot/upload",
+      "accept": {
+        "text/plain": [".txt"],
+        "application/json": [".json"],
+        "image/*": [".png", ".jpg", ".jpeg", ".gif"]
+      }
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+ehb",
+      "url": "/ehb-robot?action=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/ehb-robot/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", "text/*", "application/*"]
+        }
+      ]
+    }
+  },
+  "permissions": [
+    "notifications",
+    "microphone",
+    "geolocation",
+    "camera"
+  ],
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple",
+    "voice-commands",
+    "offline-support",
+    "push-notifications"
+  ],
+  "developer": {
+    "name": "EHB Technologies",
+    "url": "https://ehb-technologies.com"
+  },
+  "homepage_url": "https://ehb-robot.com",
+  "author": "EHB Technologies",
+  "minimum_version": "1.0.0",
+  "version_name": "Phase 6 - Multi-Agent System",
+  "update_url": "https://ehb-robot.com/updates.json",
+  "offline_enabled": true,
+  "background": {
+    "scripts": ["/sw.js"],
+    "persistent": false
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["/icons/*", "/images/*", "/sounds/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "externally_connectable": {
+    "matches": ["https://*.ehb-robot.com", "https://*.ehb-technologies.com"]
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Launch EHB Robot"
+    }
+  },
+  "action": {
+    "default_popup": "/popup.html",
+    "default_title": "EHB Robot",
+    "default_icon": {
+      "16": "/icons/icon-16x16.png",
+      "32": "/icons/icon-32x32.png",
+      "48": "/icons/icon-48x48.png",
+      "128": "/icons/icon-128x128.png"
+    }
+  },
+  "browser_action": {
+    "default_popup": "/popup.html",
+    "default_title": "EHB Robot",
+    "default_icon": {
+      "16": "/icons/icon-16x16.png",
+      "32": "/icons/icon-32x32.png",
+      "48": "/icons/icon-48x48.png",
+      "128": "/icons/icon-128x128.png"
+    }
+  },
+  "options_page": "/options.html",
+  "chrome_url_overrides": {
+    "newtab": "/newtab.html"
+  },
+  "omnibox": {
+    "keyword": "ehb"
+  },
+  "page_action": {
+    "default_popup": "/popup.html",
+    "default_title": "EHB Robot",
+    "default_icon": {
+      "16": "/icons/icon-16x16.png",
+      "32": "/icons/icon-32x32.png",
+      "48": "/icons/icon-48x48.png",
+      "128": "/icons/icon-128x128.png"
+    }
+  },
+  "sandbox": {
+    "pages": ["/sandbox.html"]
+  },
+  "storage": {
+    "managed_schema": "/schema.json"
+  },
+  "oauth2": {
+    "client_id": "ehb-robot-client",
+    "scopes": ["openid", "email", "profile"]
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...",
+  "externally_connectable": {
+    "matches": ["https://*.ehb-robot.com", "https://*.ehb-technologies.com"],
+    "accepts_tls_channel_id": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["/content-script.js"],
+      "css": ["/content-style.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["/icons/*", "/images/*", "/sounds/*", "/styles/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": [
+    "notifications",
+    "microphone",
+    "geolocation",
+    "camera",
+    "storage",
+    "unlimitedStorage",
+    "identity",
+    "identity.email"
+  ],
+  "optional_permissions": [
+    "bookmarks",
+    "history",
+    "tabs",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://*.ehb-robot.com/*",
+    "https://*.ehb-technologies.com/*"
+  ],
+  "background": {
+    "service_worker": "/sw.js",
+    "type": "module"
+  },
+  "manifest_version": 3,
+  "minimum_chrome_version": "88",
+  "update_url": "https://ehb-robot.com/updates.xml",
+  "version_name": "Phase 6 - Multi-Agent System v1.0.0",
+  "description": "EHB Robot is your intelligent AI assistant that can handle complex tasks, manage appointments, order groceries, and automate your daily routines. Features include voice commands, offline support, multi-agent task processing, and cross-platform compatibility.",
+  "homepage_url": "https://ehb-robot.com",
+  "author": "EHB Technologies",
+  "icons": {
+    "16": "/icons/icon-16x16.png",
+    "32": "/icons/icon-32x32.png",
+    "48": "/icons/icon-48x48.png",
+    "128": "/icons/icon-128x128.png"
+  }
+}

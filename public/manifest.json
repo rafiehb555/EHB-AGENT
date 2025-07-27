@@ -1,0 +1,256 @@
+{
+  "name": "EHB Robot - AI Assistant",
+  "short_name": "EHB Robot",
+  "description": "Your personal AI assistant with blockchain integration, voice control, and offline capabilities",
+  "start_url": "/ehb-robot",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1a1a2e",
+  "background_color": "#16213e",
+  "scope": "/",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities", "lifestyle", "business"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Voice Mode",
+      "short_name": "Voice",
+      "description": "Start voice-only assistant mode",
+      "url": "/ehb-robot?mode=voice",
+      "icons": [
+        {
+          "src": "/icons/voice-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Quick Order",
+      "short_name": "Order",
+      "description": "Place a quick order",
+      "url": "/ehb-robot?action=order",
+      "icons": [
+        {
+          "src": "/icons/order-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Robot Store",
+      "short_name": "Store",
+      "description": "Browse and install robot plugins",
+      "url": "/robot-store",
+      "icons": [
+        {
+          "src": "/icons/store-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Wallet",
+      "short_name": "Wallet",
+      "description": "Check wallet balance and transactions",
+      "url": "/ehb-robot?action=wallet",
+      "icons": [
+        {
+          "src": "/icons/wallet-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "EHB Robot Main Interface"
+    },
+    {
+      "src": "/screenshots/mobile-1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Voice Mode Interface"
+    },
+    {
+      "src": "/screenshots/mobile-2.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Robot Store"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://ehb-robot.com"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/ehb-robot/import",
+      "accept": {
+        "application/json": [".robot.json", ".robot-backup.json"]
+      }
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "ehb-robot",
+      "url": "/ehb-robot?command=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/ehb-robot/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "permissions": [
+    "microphone",
+    "notifications",
+    "geolocation",
+    "storage"
+  ],
+  "features": [
+    "Cross Platform",
+    "fast",
+    "simple",
+    "voice-control",
+    "offline-capable",
+    "blockchain-integrated"
+  ],
+  "developer": {
+    "name": "EHB Team",
+    "url": "https://ehb-robot.com"
+  },
+  "homepage_url": "https://ehb-robot.com",
+  "author": "EHB Development Team",
+  "minimum_version": "1.0.0",
+  "version_name": "Phase 8 - AI+Blockchain Singularity",
+  "update_url": "https://ehb-robot.com/updates",
+  "offline_enabled": true,
+  "background": {
+    "service_worker": "/serviceWorker.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["/icons/*", "/screenshots/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "externally_connectable": {
+    "matches": ["https://*.ehb-robot.com", "https://*.metamask.io"]
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Open EHB Robot"
+    }
+  },
+  "action": {
+    "default_title": "EHB Robot",
+    "default_popup": "/ehb-robot/popup",
+    "default_icon": {
+      "16": "/icons/icon-16x16.png",
+      "32": "/icons/icon-32x32.png",
+      "48": "/icons/icon-48x48.png",
+      "128": "/icons/icon-128x128.png"
+    }
+  },
+  "browser_action": {
+    "default_title": "EHB Robot",
+    "default_popup": "/ehb-robot/popup"
+  },
+  "page_action": {
+    "default_title": "EHB Robot",
+    "default_popup": "/ehb-robot/popup"
+  },
+  "options_page": "/ehb-robot/settings",
+  "chrome_url_overrides": {
+    "newtab": "/ehb-robot/newtab"
+  },
+  "omnibox": {
+    "keyword": "ehb"
+  },
+  "sandbox": {
+    "pages": ["/ehb-robot/sandbox"]
+  },
+  "storage": {
+    "managed_schema": "/schemas/storage.json"
+  },
+  "oauth2": {
+    "client_id": "ehb-robot-app",
+    "scopes": ["openid", "profile", "email"]
+  },
+  "host_permissions": [
+    "https://*.ehb-robot.com/*",
+    "https://*.metamask.io/*",
+    "https://*.ethereum.org/*"
+  ]
+}

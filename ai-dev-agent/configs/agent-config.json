@@ -1,0 +1,128 @@
+{
+  "company": "EHB (Excellence in Healthcare Business)",
+  "version": "1.0.0",
+  "description": "Healthcare Technology Development Agent",
+  "healthcare_compliance": [
+    "HIPAA",
+    "GDPR", 
+    "WCAG 2.1 AA",
+    "FDA 21 CFR Part 11",
+    "SOC 2 Type II"
+  ],
+  "tech_stack": {
+    "frontend": [
+      "React.js",
+      "Angular", 
+      "Vue.js",
+      "TypeScript"
+    ],
+    "backend": [
+      "Node.js",
+      "Python",
+      "Java",
+      "FastAPI"
+    ],
+    "database": [
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Redis"
+    ],
+    "cloud": [
+      "AWS",
+      "Azure", 
+      "Google Cloud"
+    ],
+    "mobile": [
+      "React Native",
+      "Flutter"
+    ],
+    "ai_ml": [
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-learn"
+    ]
+  },
+  "healthcare_standards": {
+    "data_interoperability": "HL7 FHIR",
+    "disease_classification": "ICD-10",
+    "procedure_codes": "CPT codes",
+    "lab_observations": "LOINC",
+    "clinical_terminology": "SNOMED CT"
+  },
+  "sub_agents": {
+    "backend": "backend-agent.py",
+    "frontend": "frontend-agent.py",
+    "blockchain": "blockchain-agent.py", 
+    "testing": "testing-agent.py",
+    "security": "security-agent.py",
+    "analytics": "analytics-agent.py",
+    "mobile": "mobile-agent.py"
+  },
+  "performance_standards": {
+    "frontend": {
+      "load_time": "< 3 seconds",
+      "bundle_size": "< 500KB",
+      "image_optimization": "WebP format"
+    },
+    "backend": {
+      "response_time": "< 200ms",
+      "database_queries": "optimized with indexing",
+      "caching": "Redis for frequent data"
+    }
+  },
+  "security_requirements": {
+    "encryption": "AES-256",
+    "authentication": "Multi-factor",
+    "authorization": "Role-based access control",
+    "audit_logging": "Complete audit trails",
+    "data_retention": "Proper retention policies",
+    "breach_notification": "Incident response",
+    "data_masking": "PII protection",
+    "secure_communication": "SSL/TLS"
+  },
+  "testing_requirements": {
+    "unit_tests": "80% coverage minimum",
+    "integration_tests": "API endpoint testing",
+    "end_to_end_tests": "Critical user flows",
+    "healthcare_tests": "Medical data validation",
+    "security_tests": "Penetration testing",
+    "accessibility_tests": "WCAG compliance"
+  },
+  "brand_colors": {
+    "primary_blue": "#2563EB",
+    "healthcare_green": "#10B981", 
+    "professional_gray": "#6B7280",
+    "success_green": "#22C55E",
+    "error_red": "#EF4444"
+  },
+  "emergency_contacts": {
+    "security_incidents": "security@ehb.com",
+    "data_breaches": "privacy@ehb.com", 
+    "system_outages": "emergency-tech@ehb.com",
+    "patient_safety": "safety@ehb.com"
+  },
+  "file_structure": {
+    "src": {
+      "components": "Reusable UI components",
+      "pages": "Page components", 
+      "services": "Business logic and API calls",
+      "utils": "Helper functions",
+      "types": "TypeScript type definitions",
+      "hooks": "Custom React hooks",
+      "constants": "Application constants",
+      "assets": "Images, icons, etc."
+    },
+    "tests": {
+      "unit": "Unit tests",
+      "integration": "Integration tests",
+      "e2e": "End-to-end tests",
+      "healthcare": "Healthcare-specific tests"
+    },
+    "docs": {
+      "api": "API documentation",
+      "deployment": "Deployment guides",
+      "compliance": "Compliance documentation"
+    }
+  }
+} 

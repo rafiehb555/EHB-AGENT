@@ -1,0 +1,47 @@
+{
+  "name": "ehb-ai-dev-agent",
+  "version": "1.0.0",
+  "description": "EHB AI Dev Agent - Healthcare Technology Development Manager",
+  "main": "main.py",
+  "scripts": {
+    "start": "python main.py",
+    "server": "python server.py",
+    "analyze": "python main.py analyze",
+    "status": "python main.py status",
+    "fetch": "python main.py fetch",
+    "build": "python main.py build",
+    "test": "python -m pytest tests/"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "healthcare",
+    "development",
+    "automation",
+    "ehb"
+  ],
+  "author": "EHB Technologies",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ehb-technologies/ehb-ai-dev-agent"
+  },
+  "bugs": {
+    "url": "https://github.com/ehb-technologies/ehb-ai-dev-agent/issues"
+  },
+  "homepage": "https://github.com/ehb-technologies/ehb-ai-dev-agent#readme"
+} 
