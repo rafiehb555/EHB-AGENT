@@ -57,6 +57,9 @@ app.use('/api/actions', require('./routes/actions'));
 app.use('/api/wake-word', require('./routes/wakeWord'));
 app.use('/api/whisper', require('./routes/whisper'));
 app.use('/api/files', require('./routes/files'));
+app.use('/api/blockchain', require('./routes/blockchain'));
+app.use('/api/franchise', require('./routes/franchise'));
+app.use('/api/complaints', require('./routes/complaints'));
 app.use('/api/scheduler', require('./routes/scheduler'));
 
 // Error handling middleware

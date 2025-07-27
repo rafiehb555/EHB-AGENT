@@ -41,6 +41,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Homepage route
+app.get('/homepage', (req, res) => {
+    res.sendFile(path.join(__dirname, 'homepage.html'));
+});
+
 // EHB Robot page
 app.get('/ehb-robot', (req, res) => {
     res.sendFile(path.join(__dirname, 'pages/ehb-robot.html'));

@@ -119,6 +119,10 @@ app.use('/api/dao/vote', daoVoteRoutes);
 const aiMatchRoutes = require('./routes/ai/match-products');
 app.use('/api/ai/match-products', aiMatchRoutes);
 
+// Phase 22 - Order Management Routes
+const orderRoutes = require('./routes/orders');
+app.use('/api/orders', orderRoutes);
+
 // Phase 4 - Smart Learning Components
 app.get('/robot-suggestions', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/components/EhbRobot/RobotSuggestions.tsx'));
